@@ -10,281 +10,195 @@ type ServicePageProps = {
 };
 
 function EnterpriseNetworkArchitectureDiagram() {
-  const text = "#1f2937";
-  const muted = "#64748b";
-  const blue = "#0ea5e9";
-  const darkBlue = "#0369a1";
-  const green = "#059669";
-  const amber = "#d97706";
-  const red = "#dc2626";
-
   return (
-    <figure className="overflow-hidden rounded-[28px] border border-white/10 bg-stone-50 p-4 shadow-[0_24px_80px_rgba(0,0,0,0.35)]">
+    <figure className="overflow-hidden rounded-[28px] border border-sky-300/20 bg-[#111827] p-4 shadow-[0_24px_80px_rgba(0,0,0,0.35)]">
       <div className="overflow-x-auto">
         <svg
-          aria-labelledby="enterprise-network-diagram-title"
-          className="min-w-[980px]"
+          aria-labelledby="enterprise-network-rack-title"
+          className="min-w-[820px]"
           role="img"
-          viewBox="0 0 1180 760"
+          viewBox="0 0 980 1180"
         >
-          <title id="enterprise-network-diagram-title">
-            Enterprise HA network architecture diagram
+          <title id="enterprise-network-rack-title">
+            Enterprise network architecture rack design with HA firewalls and switching layers
           </title>
           <defs>
-            <marker
-              id="arrow-blue"
-              markerHeight="8"
-              markerWidth="8"
-              orient="auto"
-              refX="7"
-              refY="4"
-            >
-              <path d="M0 0l8 4-8 4z" fill={blue} />
-            </marker>
-            <marker
-              id="arrow-green"
-              markerHeight="8"
-              markerWidth="8"
-              orient="auto"
-              refX="7"
-              refY="4"
-            >
-              <path d="M0 0l8 4-8 4z" fill={green} />
-            </marker>
-            <filter id="soft-shadow" x="-20%" y="-20%" width="140%" height="140%">
-              <feDropShadow
-                dx="0"
-                dy="8"
-                floodColor="#0f172a"
-                floodOpacity="0.16"
-                stdDeviation="8"
-              />
+            <linearGradient id="rack-bg" x1="0" x2="0" y1="0" y2="1">
+              <stop stopColor="#111827" />
+              <stop offset="0.5" stopColor="#374151" />
+              <stop offset="1" stopColor="#1f2937" />
+            </linearGradient>
+            <linearGradient id="blue-glow" x1="0" x2="1">
+              <stop stopColor="#38bdf8" stopOpacity="0.15" />
+              <stop offset="0.5" stopColor="#0ea5e9" stopOpacity="0.95" />
+              <stop offset="1" stopColor="#38bdf8" stopOpacity="0.15" />
+            </linearGradient>
+            <filter id="rack-shadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="16" floodColor="#000000" floodOpacity="0.38" stdDeviation="12" />
+            </filter>
+            <filter id="rack-blue-glow" x="-30%" y="-30%" width="160%" height="160%">
+              <feDropShadow dx="0" dy="0" floodColor="#38bdf8" floodOpacity="0.65" stdDeviation="6" />
             </filter>
           </defs>
 
-          <rect fill="#f8fafc" height="760" rx="28" width="1180" />
-
-          <g>
-            <text fill={text} fontSize="26" fontWeight="700" x="34" y="48">
-              Enterprise HA Network Design
-            </text>
-            <text fill={muted} fontSize="14" x="34" y="72">
-              Fortinet edge, Cisco campus, hybrid identity, Azure cloud, VPN,
-              servers, and segmented access zones
-            </text>
+          <rect fill="url(#rack-bg)" height="1180" rx="28" width="980" />
+          <g opacity="0.16" stroke="#93c5fd">
+            <path d="M80 118h820M80 242h820M80 366h820M80 490h820M80 614h820M80 738h820M80 862h820" />
+            <path d="M160 100v820M820 100v820M240 100v820M740 100v820" />
           </g>
 
-          <g stroke="#cbd5e1" strokeDasharray="8 8" strokeWidth="2">
-            <line x1="28" x2="1152" y1="126" y2="126" />
-            <line x1="28" x2="1152" y1="316" y2="316" />
-            <line x1="28" x2="1152" y1="520" y2="520" />
+          <text fill="#f8fafc" fontSize="48" fontWeight="900" textAnchor="middle" x="490" y="78">
+            Enterprise Network Architecture Design
+          </text>
+          <text fill="#cbd5e1" fontSize="18" fontWeight="700" textAnchor="middle" x="490" y="112">
+            FortiGate HA edge, Cisco core, distribution, access, VPN, cloud and endpoint services
+          </text>
+
+          <g filter="url(#rack-shadow)">
+            <path d="M126 210c20-50 92-54 122-10 48-6 88 28 90 76 43 10 50 72 6 96H110c-58-20-50-112 16-116z" fill="#e5e7eb" opacity="0.92" />
+            <text fill="#1d4ed8" fontSize="29" fontWeight="900" textAnchor="middle" x="216" y="287">
+              ISP A
+            </text>
+            <text fill="#64748b" fontSize="14" fontWeight="700" textAnchor="middle" x="216" y="316">
+              Primary WAN
+            </text>
+            <path d="M216 372v62" stroke="#fbbf24" strokeWidth="8" />
+            <path d="M236 372v62" stroke="#38bdf8" strokeWidth="8" />
+            <path d="M196 372v62" stroke="#ef4444" strokeWidth="8" />
           </g>
 
-          <g fill={darkBlue} fontSize="22" fontWeight="700">
-            <text x="940" y="112">Internet / Cloud Zone</text>
-            <text x="905" y="302">Enterprise DMZ and Security Edge</text>
-            <text x="884" y="506">Campus, Server, and Identity Zone</text>
-            <text x="878" y="710">Access, Branch, and Remote User Zone</text>
+          <g filter="url(#rack-shadow)">
+            <path d="M646 210c22-52 96-54 124-9 46-3 84 30 86 76 44 11 50 73 7 95H630c-60-21-50-112 16-116z" fill="#e5e7eb" opacity="0.92" />
+            <rect fill="#f97316" height="58" rx="4" width="66" x="692" y="253" />
+            <text fill="#111827" fontSize="22" fontWeight="900" x="770" y="276">Cloud</text>
+            <text fill="#111827" fontSize="17" fontWeight="800" x="770" y="302">Business Services</text>
+            <path d="M724 372v62" stroke="#f97316" strokeWidth="8" />
+            <path d="M744 372v62" stroke="#38bdf8" strokeWidth="8" />
+            <path d="M704 372v62" stroke="#fbbf24" strokeWidth="8" />
           </g>
 
-          <g filter="url(#soft-shadow)">
-            <path
-              d="M910 48c18-42 89-45 113-6 38-4 73 24 75 60 44 6 62 61 28 91H897c-47-19-35-88 13-90z"
-              fill="#e0f2fe"
-              stroke={blue}
-              strokeWidth="3"
-            />
-            <text fill={darkBlue} fontSize="24" fontWeight="700" x="963" y="120">
-              Internet
-            </text>
-            <text fill={darkBlue} fontSize="14" fontWeight="600" x="943" y="150">
-              SaaS / Azure / Public DNS
-            </text>
+          <g filter="url(#rack-shadow)">
+            <rect fill="#7f1d1d" height="74" rx="10" width="396" x="82" y="430" />
+            <rect fill="#f4f4f5" height="66" rx="4" width="340" x="108" y="392" />
+            <rect fill="#ef2929" height="14" rx="2" width="26" x="124" y="412" />
+            <rect fill="#ef2929" height="14" rx="2" width="26" x="156" y="412" />
+            <rect fill="#111827" height="28" rx="2" width="184" x="205" y="411" />
+            {Array.from({ length: 10 }).map((_, index) => (
+              <rect key={index} fill="#020617" height="14" rx="1" width="14" x={214 + index * 16} y="418" />
+            ))}
+            <text fill="#f8fafc" fontSize="34" fontWeight="900" textAnchor="middle" x="280" y="486">Firewall</text>
           </g>
 
-          <g filter="url(#soft-shadow)">
-            <rect fill="#ffffff" height="86" rx="12" stroke="#bae6fd" width="156" x="704" y="70" />
-            <rect fill="#dbeafe" height="18" rx="4" width="110" x="727" y="92" />
-            <rect fill="#bfdbfe" height="18" rx="4" width="88" x="727" y="120" />
-            <text fill={darkBlue} fontSize="13" fontWeight="700" x="726" y="146">
-              Azure vNet
-            </text>
+          <g filter="url(#rack-shadow)">
+            <rect fill="#7f1d1d" height="74" rx="10" width="396" x="502" y="430" />
+            <rect fill="#f4f4f5" height="66" rx="4" width="340" x="530" y="392" />
+            <rect fill="#ef2929" height="14" rx="2" width="26" x="546" y="412" />
+            <rect fill="#ef2929" height="14" rx="2" width="26" x="578" y="412" />
+            <rect fill="#111827" height="28" rx="2" width="184" x="625" y="411" />
+            {Array.from({ length: 10 }).map((_, index) => (
+              <rect key={index} fill="#020617" height="14" rx="1" width="14" x={634 + index * 16} y="418" />
+            ))}
+            <text fill="#f8fafc" fontSize="34" fontWeight="900" textAnchor="middle" x="700" y="486">Firewall</text>
           </g>
 
-          <g stroke={blue} strokeWidth="4">
-            <line markerEnd="url(#arrow-blue)" x1="860" x2="907" y1="112" y2="112" />
-            <line markerEnd="url(#arrow-blue)" x1="614" x2="704" y1="180" y2="112" />
+          <g filter="url(#rack-blue-glow)">
+            <rect fill="#1e3a8a" height="52" rx="8" width="92" x="444" y="425" />
+            <text fill="#f8fafc" fontSize="30" fontWeight="900" textAnchor="middle" x="490" y="461">HA</text>
+            <path d="M478 453h-44M536 453h44" stroke="#fbbf24" strokeWidth="8" />
           </g>
 
-          <g filter="url(#soft-shadow)">
-            <rect fill="#ffffff" height="96" rx="12" stroke="#fed7aa" width="170" x="70" y="160" />
-            <text fill={text} fontSize="15" fontWeight="700" x="92" y="190">
-              Dual ISP Edge
-            </text>
-            <line stroke={amber} strokeWidth="5" x1="100" x2="210" y1="212" y2="212" />
-            <circle cx="112" cy="232" fill={amber} r="8" />
-            <circle cx="200" cy="232" fill={green} r="8" />
-            <text fill={muted} fontSize="12" x="94" y="250">
-              Fiber + backup circuit
-            </text>
+          <g filter="url(#rack-shadow)">
+            <rect fill="#0f172a" height="82" rx="10" width="768" x="106" y="548" />
+            <rect fill="#020617" height="40" rx="4" width="224" x="150" y="572" />
+            <rect fill="#020617" height="40" rx="4" width="224" x="606" y="572" />
+            {Array.from({ length: 12 }).map((_, index) => (
+              <rect key={`core-a-${index}`} fill="#111827" height="18" rx="1" stroke="#fbbf24" strokeOpacity="0.5" width="12" x={164 + index * 16} y="583" />
+            ))}
+            {Array.from({ length: 12 }).map((_, index) => (
+              <rect key={`core-b-${index}`} fill="#111827" height="18" rx="1" stroke="#fbbf24" strokeOpacity="0.5" width="12" x={620 + index * 16} y="583" />
+            ))}
+            <rect fill="#0e7490" height="45" rx="5" width="260" x="360" y="615" />
+            <text fill="#f8fafc" fontSize="28" fontWeight="900" textAnchor="middle" x="490" y="646">Core Switches</text>
           </g>
 
-          <g filter="url(#soft-shadow)">
-            <rect fill="#fee2e2" height="72" rx="10" stroke={red} strokeWidth="3" width="106" x="333" y="154" />
-            <rect fill="#fee2e2" height="72" rx="10" stroke={red} strokeWidth="3" width="106" x="493" y="154" />
-            <path d="M359 180h54M359 198h54M519 180h54M519 198h54" stroke={red} strokeWidth="3" />
-            <text fill={red} fontSize="13" fontWeight="700" x="342" y="246">
-              FortiGate HA-A
-            </text>
-            <text fill={red} fontSize="13" fontWeight="700" x="502" y="246">
-              FortiGate HA-B
-            </text>
+          <g filter="url(#rack-blue-glow)" opacity="0.95">
+            <path d="M270 630c44 86 121 129 220 129s176-43 220-129" fill="none" stroke="#38bdf8" strokeWidth="5" />
+            <path d="M310 630c39 58 99 87 180 87s141-29 180-87" fill="none" stroke="#fbbf24" strokeWidth="3" />
           </g>
 
-          <path
-            d="M240 206h93M439 190h54M439 210h54M599 190h92M599 210h88"
-            fill="none"
-            stroke={green}
-            strokeWidth="4"
-          />
-          <path d="M386 226v68M546 226v68" stroke={green} strokeWidth="4" />
-          <path d="M386 294h160M386 294l160-68M546 294L386 226" stroke={green} strokeOpacity="0.85" strokeWidth="3" />
-
-          <g filter="url(#soft-shadow)">
-            <rect fill="#ffffff" height="86" rx="12" stroke="#cbd5e1" width="150" x="705" y="178" />
-            <text fill={text} fontSize="14" fontWeight="700" x="724" y="207">
-              External DMZ
-            </text>
-            <text fill={muted} fontSize="12" x="724" y="230">
-              Reverse proxy
-            </text>
-            <text fill={muted} fontSize="12" x="724" y="248">
-              Published services
-            </text>
+          <g filter="url(#rack-shadow)">
+            <rect fill="#111827" height="76" rx="8" width="324" x="168" y="736" />
+            <rect fill="#111827" height="76" rx="8" width="324" x="488" y="736" />
+            {Array.from({ length: 16 }).map((_, index) => (
+              <rect key={`dist-a-${index}`} fill="#020617" height="18" rx="1" stroke="#fbbf24" strokeOpacity="0.45" width="13" x={190 + index * 17} y="765" />
+            ))}
+            {Array.from({ length: 16 }).map((_, index) => (
+              <rect key={`dist-b-${index}`} fill="#020617" height="18" rx="1" stroke="#fbbf24" strokeOpacity="0.45" width="13" x={510 + index * 17} y="765" />
+            ))}
+            <rect fill="#0e7490" height="45" rx="5" width="330" x="325" y="805" />
+            <text fill="#f8fafc" fontSize="28" fontWeight="900" textAnchor="middle" x="490" y="836">Distribution Switches</text>
           </g>
 
-          <g filter="url(#soft-shadow)">
-            <rect fill="#ffffff" height="92" rx="12" stroke="#bbf7d0" width="168" x="76" y="348" />
-            <text fill={text} fontSize="15" fontWeight="700" x="96" y="378">
-              Identity Services
-            </text>
-            <text fill={muted} fontSize="12" x="96" y="402">
-              AD DS / DNS / DHCP
-            </text>
-            <text fill={muted} fontSize="12" x="96" y="420">
-              Entra ID sync + MFA
-            </text>
+          <g filter="url(#rack-blue-glow)" opacity="0.9">
+            <path d="M322 850c38 64 94 96 168 96s130-32 168-96" fill="none" stroke="#38bdf8" strokeWidth="5" />
+            <path d="M372 850c29 39 68 58 118 58s89-19 118-58" fill="none" stroke="#fbbf24" strokeWidth="3" />
           </g>
 
-          <g filter="url(#soft-shadow)">
-            <rect fill="#e0f2fe" height="86" rx="12" stroke={blue} strokeWidth="3" width="106" x="332" y="360" />
-            <rect fill="#e0f2fe" height="86" rx="12" stroke={blue} strokeWidth="3" width="106" x="494" y="360" />
-            <path d="M354 389h62M354 410h62M516 389h62M516 410h62" stroke={darkBlue} strokeWidth="4" />
-            <text fill={darkBlue} fontSize="13" fontWeight="700" x="337" y="466">
-              Cisco Core A
-            </text>
-            <text fill={darkBlue} fontSize="13" fontWeight="700" x="499" y="466">
-              Cisco Core B
-            </text>
+          <g filter="url(#rack-shadow)">
+            <rect fill="#111827" height="76" rx="8" width="648" x="166" y="936" />
+            {Array.from({ length: 28 }).map((_, index) => (
+              <rect key={`access-${index}`} fill="#020617" height="18" rx="1" stroke="#fbbf24" strokeOpacity="0.45" width="13" x={190 + index * 20} y="965" />
+            ))}
+            <rect fill="#0e7490" height="45" rx="5" width="300" x="340" y="1006" />
+            <text fill="#f8fafc" fontSize="28" fontWeight="900" textAnchor="middle" x="490" y="1037">Access Switches</text>
           </g>
 
-          <path
-            d="M244 394h88M438 382h56M438 424h56M546 318v42M386 318v42M438 402h56M438 382l56 42M494 382l-56 42"
-            fill="none"
-            stroke={green}
-            strokeWidth="4"
-          />
-
-          <g filter="url(#soft-shadow)">
-            <rect fill="#ffffff" height="114" rx="12" stroke="#cbd5e1" width="180" x="674" y="350" />
-            <text fill={text} fontSize="15" fontWeight="700" x="698" y="380">
-              Server Networks
-            </text>
-            <rect fill="#f1f5f9" height="16" rx="3" width="118" x="704" y="396" />
-            <rect fill="#f1f5f9" height="16" rx="3" width="96" x="704" y="421" />
-            <text fill={muted} fontSize="12" x="704" y="452">
-              Apps / DB / backup / monitoring
-            </text>
+          <g filter="url(#rack-blue-glow)" strokeLinecap="round">
+            <path d="M490 1012v68" stroke="#38bdf8" strokeWidth="5" />
+            <path d="M322 1012c-110 42-164 90-164 144" stroke="#38bdf8" strokeWidth="4" />
+            <path d="M420 1012c-78 32-118 74-118 126" stroke="#fbbf24" strokeWidth="3" />
+            <path d="M560 1012c72 38 108 81 108 128" stroke="#38bdf8" strokeWidth="4" />
+            <path d="M690 1012c88 36 132 82 132 138" stroke="#38bdf8" strokeWidth="4" />
           </g>
 
-          <path d="M600 402h74" stroke={green} strokeWidth="4" />
-
-          <g filter="url(#soft-shadow)">
-            <rect fill="#fef3c7" height="76" rx="12" stroke={amber} strokeWidth="3" width="130" x="924" y="356" />
-            <text fill="#92400e" fontSize="15" fontWeight="700" x="950" y="386">
-              SSL VPN
-            </text>
-            <text fill="#92400e" fontSize="12" x="945" y="409">
-              SAML + MFA
-            </text>
+          <g fill="#f8fafc" fontWeight="900">
+            <g>
+              <rect fill="#e5e7eb" height="64" rx="10" width="72" x="86" y="1062" />
+              <circle cx="122" cy="1094" fill="#020617" r="18" />
+              <circle cx="122" cy="1094" fill="#38bdf8" r="7" />
+              <text fontSize="22" textAnchor="middle" x="122" y="1160">Camera</text>
+            </g>
+            <g>
+              <rect fill="#111827" height="68" rx="8" width="42" x="248" y="1076" />
+              <rect fill="#111827" height="68" rx="8" width="42" x="300" y="1076" />
+              <rect fill="#38bdf8" height="18" rx="2" width="26" x="256" y="1085" />
+              <rect fill="#38bdf8" height="18" rx="2" width="26" x="308" y="1085" />
+              <text fontSize="22" textAnchor="middle" x="295" y="1170">IP Phones</text>
+            </g>
+            <g>
+              <path d="M438 1090h108l24 50H414z" fill="#111827" />
+              <rect fill="#0ea5e9" height="36" rx="4" width="88" x="448" y="1097" />
+              <text fontSize="22" textAnchor="middle" x="490" y="1170">Laptops</text>
+            </g>
+            <g>
+              <ellipse cx="780" cy="1118" fill="#e5e7eb" rx="54" ry="22" />
+              <ellipse cx="820" cy="1118" fill="#e5e7eb" rx="54" ry="22" />
+              <rect fill="#f8fafc" height="32" rx="10" width="108" x="726" y="1086" />
+              <text fontSize="22" textAnchor="middle" x="780" y="1170">Access Points</text>
+            </g>
           </g>
-          <path d="M546 226c128 10 277 47 378 130" fill="none" stroke={amber} strokeDasharray="7 7" strokeWidth="3" />
 
-          <g filter="url(#soft-shadow)">
-            <rect fill="#e0f2fe" height="72" rx="12" stroke={blue} strokeWidth="3" width="112" x="410" y="590" />
-            <rect fill="#e0f2fe" height="72" rx="12" stroke={blue} strokeWidth="3" width="112" x="548" y="590" />
-            <rect fill="#e0f2fe" height="72" rx="12" stroke={blue} strokeWidth="3" width="112" x="686" y="590" />
-            <text fill={darkBlue} fontSize="13" fontWeight="700" x="432" y="634">
-              Access 1
-            </text>
-            <text fill={darkBlue} fontSize="13" fontWeight="700" x="570" y="634">
-              Access 2
-            </text>
-            <text fill={darkBlue} fontSize="13" fontWeight="700" x="708" y="634">
-              Access 3
-            </text>
-          </g>
-
-          <path
-            d="M386 446l80 144M546 446l58 144M546 446l196 144M386 446l356 144"
-            stroke={blue}
-            strokeWidth="4"
-          />
-
-          <g filter="url(#soft-shadow)">
-            <rect fill="#ffffff" height="90" rx="12" stroke="#cbd5e1" width="180" x="70" y="590" />
-            <text fill={text} fontSize="15" fontWeight="700" x="95" y="622">
-              Branch / Remote Site
-            </text>
-            <text fill={muted} fontSize="12" x="95" y="646">
-              IPsec or SD-WAN overlay
-            </text>
-            <text fill={muted} fontSize="12" x="95" y="664">
-              Local breakout + templates
-            </text>
-          </g>
-          <path d="M240 620c78-80 177-130 292-158" fill="none" stroke={amber} strokeDasharray="6 7" strokeWidth="3" />
-
-          <g filter="url(#soft-shadow)">
-            <rect fill="#ecfdf5" height="90" rx="12" stroke={green} strokeWidth="3" width="174" x="900" y="584" />
-            <text fill={green} fontSize="15" fontWeight="700" x="926" y="617">
-              Management Zone
-            </text>
-            <text fill="#047857" fontSize="12" x="926" y="641">
-              FortiAnalyzer / SIEM
-            </text>
-            <text fill="#047857" fontSize="12" x="926" y="659">
-              Jump host / admin access
-            </text>
-          </g>
-          <path d="M900 628H798" stroke={green} strokeDasharray="6 6" strokeWidth="3" />
-
-          <g fill={muted} fontSize="12">
-            <circle cx="54" cy="724" fill={green} r="5" />
-            <text x="66" y="728">Redundant production path</text>
-            <circle cx="252" cy="724" fill={blue} r="5" />
-            <text x="264" y="728">Campus access uplinks</text>
-            <circle cx="426" cy="724" fill={amber} r="5" />
-            <text x="438" y="728">VPN / SD-WAN / failover path</text>
-            <circle cx="660" cy="724" fill={red} r="5" />
-            <text x="672" y="728">Firewall security boundary</text>
+          <g opacity="0.75" stroke="url(#blue-glow)" strokeWidth="7">
+            <line x1="120" x2="120" y1="520" y2="1048" />
+            <line x1="860" x2="860" y1="520" y2="1048" />
           </g>
         </svg>
       </div>
-      <figcaption className="mt-3 text-sm leading-6 text-stone-600">
-        Sample enterprise design concept showing redundant Fortinet edge,
-        Cisco core, hybrid identity, server networks, Azure connectivity,
-        branch access, SSL VPN, and management visibility.
+      <figcaption className="mt-3 text-sm leading-6 text-stone-300">
+        Rack-style enterprise design concept with dual FortiGate firewalls in HA,
+        redundant core and distribution switching, access switching, ISP/cloud
+        uplinks, and endpoint access for cameras, IP phones, laptops, and access
+        points.
       </figcaption>
     </figure>
   );
