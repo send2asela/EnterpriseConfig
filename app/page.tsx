@@ -92,177 +92,177 @@ const articles = [
 ];
 
 function ServiceDrawing({ slug }: { slug: string }) {
-  const nodeClass =
-    "flex h-9 w-9 items-center justify-center rounded-full border border-amber-200/30 bg-amber-400/15 text-[10px] font-semibold text-amber-100";
-  const lineClass = "h-px flex-1 bg-gradient-to-r from-amber-300/40 to-emerald-300/35";
+  const frameClass =
+    "h-40 overflow-hidden rounded-2xl border border-white/10 bg-[radial-gradient(circle_at_20%_20%,_rgba(245,158,11,0.16),_transparent_34%),linear-gradient(135deg,_rgba(255,255,255,0.06),_rgba(255,255,255,0.02))] p-3";
+  const labelClass = "fill-stone-100 text-[9px] font-semibold tracking-wide";
 
   if (slug === "enterprise-networking") {
     return (
-      <div className="flex h-32 items-center gap-3 rounded-2xl border border-white/10 bg-stone-100/5 p-4">
-        <div className="grid gap-2">
-          <span className={nodeClass}>ISP</span>
-          <span className={nodeClass}>ISP</span>
-        </div>
-        <span className={lineClass} />
-        <div className="grid gap-2">
-          <span className="rounded-xl border border-emerald-300/30 bg-emerald-400/15 px-3 py-2 text-center text-[10px] font-semibold text-emerald-100">
-            HA
-          </span>
-          <span className="rounded-xl border border-white/10 bg-zinc-950/70 px-3 py-2 text-center text-[10px] font-semibold text-stone-200">
-            Core
-          </span>
-        </div>
-        <span className={lineClass} />
-        <div className="grid grid-cols-2 gap-2">
-          {["LAN", "DC", "VPN", "AZ"].map((label) => (
-            <span
-              key={label}
-              className="rounded-lg border border-white/10 bg-zinc-950/70 px-2 py-2 text-center text-[10px] font-semibold text-stone-200"
-            >
-              {label}
-            </span>
-          ))}
-        </div>
+      <div className={frameClass}>
+        <svg aria-hidden="true" className="h-full w-full" viewBox="0 0 320 150">
+          <defs>
+            <linearGradient id="network-gold" x1="0" x2="1">
+              <stop stopColor="#fbbf24" stopOpacity="0.95" />
+              <stop offset="1" stopColor="#34d399" stopOpacity="0.85" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M32 54 C78 20 111 20 151 52 S224 88 286 54"
+            fill="none"
+            stroke="url(#network-gold)"
+            strokeDasharray="5 6"
+            strokeWidth="2"
+          />
+          <path
+            d="M32 94 C77 126 116 125 153 96 S224 62 286 94"
+            fill="none"
+            stroke="url(#network-gold)"
+            strokeDasharray="5 6"
+            strokeOpacity="0.7"
+            strokeWidth="2"
+          />
+          <g>
+            <ellipse cx="50" cy="74" fill="#1c1917" rx="35" ry="22" stroke="#fbbf24" strokeOpacity="0.55" />
+            <path d="M23 74h54M31 62c9 10 9 23 0 33M68 62c-9 10-9 23 0 33" fill="none" stroke="#fbbf24" strokeOpacity="0.45" />
+            <text className={labelClass} x="38" y="78">WAN</text>
+          </g>
+          <g>
+            <path d="M132 43h58l16 15v48l-16 15h-58l-16-15V58z" fill="#16382c" stroke="#34d399" strokeOpacity="0.7" />
+            <path d="M135 61h53M135 78h53M135 95h53" stroke="#d1fae5" strokeOpacity="0.35" />
+            <text className={labelClass} x="144" y="84">HA EDGE</text>
+          </g>
+          <g>
+            <path d="M238 45h45l18 18v52h-63z" fill="#111827" stroke="#e7e5e4" strokeOpacity="0.25" />
+            <path d="M247 60h34M247 75h44M247 90h37" stroke="#f5f5f4" strokeOpacity="0.35" strokeWidth="3" />
+            <circle cx="288" cy="113" fill="#fbbf24" r="4" />
+            <text className={labelClass} x="246" y="132">CORE / DC / AZURE</text>
+          </g>
+        </svg>
       </div>
     );
   }
 
   if (slug === "network-security") {
     return (
-      <div className="grid h-32 grid-cols-[1fr_auto_1fr] items-center gap-3 rounded-2xl border border-white/10 bg-stone-100/5 p-4">
-        <div className="grid gap-2">
-          {["Users", "Guest", "Cloud"].map((label) => (
-            <span
-              key={label}
-              className="rounded-lg border border-white/10 bg-zinc-950/70 px-3 py-2 text-[10px] font-semibold text-stone-300"
-            >
-              {label}
-            </span>
+      <div className={frameClass}>
+        <svg aria-hidden="true" className="h-full w-full" viewBox="0 0 320 150">
+          <defs>
+            <linearGradient id="security-shield" x1="0" x2="1">
+              <stop stopColor="#f59e0b" />
+              <stop offset="1" stopColor="#10b981" />
+            </linearGradient>
+          </defs>
+          <path d="M44 42h74M44 75h74M44 108h74M202 42h74M202 75h74M202 108h74" stroke="#fbbf24" strokeOpacity="0.32" strokeWidth="2" />
+          <path d="M160 29l53 19v34c0 29-19 48-53 59-34-11-53-30-53-59V48z" fill="#1c1917" stroke="url(#security-shield)" strokeWidth="2" />
+          <path d="M139 79l14 14 31-35" fill="none" stroke="#fef3c7" strokeLinecap="round" strokeLinejoin="round" strokeWidth="6" />
+          {[
+            [46, 31, "USERS"],
+            [46, 64, "GUEST"],
+            [46, 97, "CLOUD"],
+            [226, 31, "APPS"],
+            [226, 64, "DC"],
+            [226, 97, "OT"],
+          ].map(([x, y, label]) => (
+            <g key={label as string}>
+              <rect fill="#111111" height="24" rx="8" stroke="#ffffff" strokeOpacity="0.12" width="70" x={x as number} y={y as number} />
+              <text className={labelClass} x={(x as number) + 14} y={(y as number) + 16}>{label}</text>
+            </g>
           ))}
-        </div>
-        <div className="flex h-20 w-16 items-center justify-center rounded-2xl border border-amber-300/35 bg-amber-400/15 text-xs font-semibold text-amber-100">
-          FW
-        </div>
-        <div className="grid gap-2">
-          {["Apps", "DC", "OT"].map((label) => (
-            <span
-              key={label}
-              className="rounded-lg border border-emerald-300/20 bg-emerald-400/10 px-3 py-2 text-[10px] font-semibold text-emerald-100"
-            >
-              {label}
-            </span>
-          ))}
-        </div>
+        </svg>
       </div>
     );
   }
 
   if (slug === "ot-ics-security") {
     return (
-      <div className="h-32 rounded-2xl border border-white/10 bg-stone-100/5 p-4">
-        <div className="grid h-full grid-rows-3 gap-2">
+      <div className={frameClass}>
+        <svg aria-hidden="true" className="h-full w-full" viewBox="0 0 320 150">
+          <path d="M38 34h244M38 76h244M38 118h244" stroke="#fbbf24" strokeOpacity="0.22" strokeWidth="2" />
           {[
-            ["IT", "DMZ"],
-            ["SCADA", "ENG"],
-            ["PLC", "HMI"],
-          ].map((row) => (
-            <div key={row.join("-")} className="grid grid-cols-2 gap-2">
-              {row.map((label) => (
-                <span
-                  key={label}
-                  className="rounded-lg border border-white/10 bg-zinc-950/70 px-3 py-2 text-center text-[10px] font-semibold text-stone-200"
-                >
-                  {label}
-                </span>
-              ))}
-            </div>
+            [58, 21, 0, "IT"],
+            [188, 21, 1, "DMZ"],
+            [58, 63, 2, "SCADA"],
+            [188, 63, 3, "ENG"],
+            [58, 105, 4, "PLC"],
+            [188, 105, 5, "HMI"],
+          ].map(([x, y, index, label]) => (
+            <g key={label as string}>
+              <path
+                d={`M${x as number} ${y as number}h70l12 12v22h-82z`}
+                fill={Number(index) % 2 === 0 ? "#111827" : "#153428"}
+                stroke={Number(index) % 2 === 0 ? "#fbbf24" : "#34d399"}
+                strokeOpacity="0.45"
+              />
+              <circle cx={(x as number) + 13} cy={(y as number) + 17} fill="#fef3c7" r="4" opacity="0.75" />
+              <text className={labelClass} x={(x as number) + 28} y={(y as number) + 21}>{label}</text>
+            </g>
           ))}
-        </div>
+          <path d="M151 33v86M169 33v86" stroke="#34d399" strokeDasharray="4 5" strokeOpacity="0.45" strokeWidth="2" />
+        </svg>
       </div>
     );
   }
 
   if (slug === "sd-wan") {
     return (
-      <div className="flex h-32 items-center justify-between rounded-2xl border border-white/10 bg-stone-100/5 p-4">
-        <div className="grid gap-2">
-          {["ISP A", "ISP B"].map((label) => (
-            <span
-              key={label}
-              className="rounded-lg border border-white/10 bg-zinc-950/70 px-3 py-2 text-[10px] font-semibold text-stone-200"
-            >
-              {label}
-            </span>
-          ))}
-        </div>
-        <div className="relative h-20 w-28">
-          <span className="absolute left-0 top-5 h-px w-full rotate-12 bg-amber-300/45" />
-          <span className="absolute left-0 top-12 h-px w-full -rotate-12 bg-emerald-300/40" />
-          <span className="absolute left-9 top-7 rounded-full border border-amber-300/35 bg-amber-400/15 px-3 py-2 text-[10px] font-semibold text-amber-100">
-            SD
-          </span>
-        </div>
-        <div className="grid gap-2">
-          {["HQ", "AZ"].map((label) => (
-            <span
-              key={label}
-              className="rounded-lg border border-emerald-300/20 bg-emerald-400/10 px-3 py-2 text-[10px] font-semibold text-emerald-100"
-            >
-              {label}
-            </span>
-          ))}
-        </div>
+      <div className={frameClass}>
+        <svg aria-hidden="true" className="h-full w-full" viewBox="0 0 320 150">
+          <path d="M76 42C118 17 191 17 242 44M76 108c42 25 115 25 166-2" fill="none" stroke="#fbbf24" strokeDasharray="6 6" strokeWidth="2" />
+          <path d="M76 75h168" stroke="#34d399" strokeDasharray="4 6" strokeOpacity="0.75" strokeWidth="2" />
+          <g>
+            <path d="M36 38h55l16 16v43L91 113H36L20 97V54z" fill="#111827" stroke="#fbbf24" strokeOpacity="0.55" />
+            <text className={labelClass} x="43" y="80">BRANCH</text>
+          </g>
+          <g>
+            <circle cx="160" cy="75" fill="#1c1917" r="34" stroke="#fbbf24" strokeWidth="2" />
+            <path d="M143 75h34M160 58v34" stroke="#fef3c7" strokeLinecap="round" strokeWidth="4" />
+            <text className={labelClass} x="143" y="119">SD-WAN</text>
+          </g>
+          <g>
+            <path d="M233 52c5-18 37-21 47-4 21 0 27 28 8 40h-62c-20-8-14-35 7-36z" fill="#153428" stroke="#34d399" strokeOpacity="0.58" />
+            <text className={labelClass} x="244" y="79">CLOUD</text>
+          </g>
+        </svg>
       </div>
     );
   }
 
   if (slug === "automation") {
     return (
-      <div className="grid h-32 grid-cols-[1fr_auto_1fr] items-center gap-3 rounded-2xl border border-white/10 bg-stone-100/5 p-4">
-        <div className="grid gap-2">
-          {["API", "Git"].map((label) => (
-            <span
-              key={label}
-              className="rounded-lg border border-white/10 bg-zinc-950/70 px-3 py-2 text-center text-[10px] font-semibold text-stone-200"
-            >
-              {label}
-            </span>
+      <div className={frameClass}>
+        <svg aria-hidden="true" className="h-full w-full" viewBox="0 0 320 150">
+          <path d="M74 76h60M185 76h60M160 47v-25M160 103v25" stroke="#fbbf24" strokeDasharray="5 5" strokeWidth="2" />
+          {[
+            [34, 52, "API"],
+            [122, 18, "GIT"],
+            [122, 86, "RUN"],
+            [236, 52, "REPORT"],
+          ].map(([x, y, label]) => (
+            <g key={label as string}>
+              <path d={`M${x as number} ${y as number}h52l12 12v30h-64z`} fill="#111827" stroke="#ffffff" strokeOpacity="0.2" />
+              <path d={`M${(x as number) + 12} ${(y as number) + 15}h27M${(x as number) + 12} ${(y as number) + 28}h38`} stroke="#f5f5f4" strokeOpacity="0.35" />
+              <text className={labelClass} x={(x as number) + 14} y={(y as number) + 50}>{label}</text>
+            </g>
           ))}
-        </div>
-        <div className="flex h-16 w-16 items-center justify-center rounded-full border border-amber-300/35 bg-amber-400/15 text-xs font-semibold text-amber-100">
-          PY
-        </div>
-        <div className="grid gap-2">
-          {["Backup", "Report"].map((label) => (
-            <span
-              key={label}
-              className="rounded-lg border border-emerald-300/20 bg-emerald-400/10 px-3 py-2 text-center text-[10px] font-semibold text-emerald-100"
-            >
-              {label}
-            </span>
-          ))}
-        </div>
+          <circle cx="160" cy="75" fill="#1c1917" r="27" stroke="#34d399" strokeWidth="2" />
+          <path d="M148 76l8 8 17-20" fill="none" stroke="#d1fae5" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4" />
+        </svg>
       </div>
     );
   }
 
   return (
-    <div className="h-32 rounded-2xl border border-white/10 bg-stone-100/5 p-4">
-      <div className="flex h-full flex-col rounded-xl border border-white/10 bg-zinc-950/70">
-        <div className="flex gap-1 border-b border-white/10 px-3 py-2">
-          <span className="h-2 w-2 rounded-full bg-amber-300" />
-          <span className="h-2 w-2 rounded-full bg-emerald-300" />
-          <span className="h-2 w-2 rounded-full bg-stone-500" />
-        </div>
-        <div className="grid flex-1 grid-cols-[0.7fr_1fr] gap-3 p-3">
-          <div className="rounded-lg bg-amber-300/20" />
-          <div className="grid gap-2">
-            <span className="rounded-full bg-stone-200/25" />
-            <span className="rounded-full bg-stone-200/15" />
-            <span className="w-2/3 rounded-full bg-emerald-300/25" />
-          </div>
-        </div>
-      </div>
+    <div className={frameClass}>
+      <svg aria-hidden="true" className="h-full w-full" viewBox="0 0 320 150">
+        <path d="M48 33h224a12 12 0 0 1 12 12v76H36V45a12 12 0 0 1 12-12z" fill="#111111" stroke="#ffffff" strokeOpacity="0.18" />
+        <path d="M36 56h248" stroke="#ffffff" strokeOpacity="0.14" />
+        <circle cx="56" cy="45" fill="#fbbf24" r="4" />
+        <circle cx="70" cy="45" fill="#34d399" r="4" />
+        <path d="M59 76h73v31H59z" fill="#3f2f08" stroke="#fbbf24" strokeOpacity="0.55" />
+        <path d="M151 77h91M151 93h71M151 109h52" stroke="#f5f5f4" strokeLinecap="round" strokeOpacity="0.4" strokeWidth="7" />
+        <path d="M132 130h56M112 140h96" stroke="#ffffff" strokeOpacity="0.2" strokeWidth="4" />
+        <text className={labelClass} x="70" y="96">SITE</text>
+      </svg>
     </div>
   );
 }
