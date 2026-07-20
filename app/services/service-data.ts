@@ -24,6 +24,12 @@ export type ServicePage = {
     description: string;
     items: string[];
   }[];
+  portfolio?: {
+    title: string;
+    description: string;
+    link: string;
+    tags: string[];
+  }[];
   stack: string[];
 };
 
@@ -374,6 +380,15 @@ export const servicePages: ServicePage[] = [
       "Fast responsive frontend implementation",
       "SEO-minded structure, metadata, and content organization",
       "Practical admin, workflow, and operational web tools",
+    ],
+    portfolio: [
+      {
+        title: "Sri Lankan Artist",
+        description:
+          "A polished, modern website for a creative brand, designed to present artistic work with clarity and elegance.",
+        link: "https://www.srilankanartist.com/",
+        tags: ["Design", "Frontend", "Brand Presence"],
+      },
     ],
     sections: [
       {

@@ -202,6 +202,59 @@ export default async function ServicePage({ params }: ServicePageProps) {
           </section>
         ) : null}
 
+        {service.portfolio ? (
+          <section className="grid gap-8 rounded-[32px] border border-amber-200/15 bg-zinc-950/60 p-8 lg:p-10">
+            <div className="max-w-3xl">
+              <p className="text-sm font-medium uppercase tracking-[0.25em] text-amber-300">
+                Web development portfolio
+              </p>
+              <h2 className="mt-3 text-3xl font-semibold text-white sm:text-4xl">
+                Selected website work.
+              </h2>
+              <p className="mt-4 text-lg leading-8 text-stone-400">
+                Examples of customer-facing sites built around clear branding,
+                responsive presentation, and simple conversion paths.
+              </p>
+            </div>
+
+            <div className="grid gap-5">
+              {service.portfolio.map((project) => (
+                <article
+                  key={project.title}
+                  className="grid gap-6 rounded-[28px] border border-white/10 bg-stone-100/5 p-6 lg:grid-cols-[1fr_auto] lg:items-center"
+                >
+                  <div>
+                    <h3 className="text-2xl font-semibold text-white">
+                      {project.title}
+                    </h3>
+                    <p className="mt-3 max-w-3xl text-sm leading-7 text-stone-400">
+                      {project.description}
+                    </p>
+                    <div className="mt-5 flex flex-wrap gap-2">
+                      {project.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-full border border-white/10 bg-zinc-950/60 px-3 py-1 text-sm text-stone-300"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="rounded-full border border-amber-300/30 bg-amber-400/10 px-5 py-3 text-center text-sm font-semibold text-amber-100 transition hover:bg-amber-400 hover:text-zinc-950"
+                  >
+                    Visit Website
+                  </a>
+                </article>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
         <section className="grid gap-6 lg:grid-cols-2">
           {service.sections.map((section) => (
             <article
