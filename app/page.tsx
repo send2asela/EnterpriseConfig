@@ -122,20 +122,58 @@ function ServiceDrawing({ slug }: { slug: string }) {
             strokeWidth="2"
           />
           <g>
-            <ellipse cx="50" cy="74" fill="#1c1917" rx="35" ry="22" stroke="#fbbf24" strokeOpacity="0.55" />
-            <path d="M23 74h54M31 62c9 10 9 23 0 33M68 62c-9 10-9 23 0 33" fill="none" stroke="#fbbf24" strokeOpacity="0.45" />
-            <text className={labelClass} x="38" y="78">WAN</text>
+            <ellipse
+              cx="50"
+              cy="74"
+              fill="#1c1917"
+              rx="35"
+              ry="22"
+              stroke="#fbbf24"
+              strokeOpacity="0.55"
+            />
+            <path
+              d="M23 74h54M31 62c9 10 9 23 0 33M68 62c-9 10-9 23 0 33"
+              fill="none"
+              stroke="#fbbf24"
+              strokeOpacity="0.45"
+            />
+            <text className={labelClass} x="38" y="78">
+              WAN
+            </text>
           </g>
           <g>
-            <path d="M132 43h58l16 15v48l-16 15h-58l-16-15V58z" fill="#16382c" stroke="#34d399" strokeOpacity="0.7" />
-            <path d="M135 61h53M135 78h53M135 95h53" stroke="#d1fae5" strokeOpacity="0.35" />
-            <text className={labelClass} x="144" y="84">HA EDGE</text>
+            <path
+              d="M132 43h58l16 15v48l-16 15h-58l-16-15V58z"
+              fill="#16382c"
+              stroke="#34d399"
+              strokeOpacity="0.7"
+            />
+            <path
+              d="M135 61h53M135 78h53M135 95h53"
+              stroke="#d1fae5"
+              strokeOpacity="0.35"
+            />
+            <text className={labelClass} x="144" y="84">
+              HA EDGE
+            </text>
           </g>
           <g>
-            <path d="M238 45h45l18 18v52h-63z" fill="#111827" stroke="#e7e5e4" strokeOpacity="0.25" />
-            <path d="M247 60h34M247 75h44M247 90h37" stroke="#f5f5f4" strokeOpacity="0.35" strokeWidth="3" />
+            <path
+              d="M238 45h45l18 18v52h-63z"
+              fill="#111827"
+              stroke="#e7e5e4"
+              strokeOpacity="0.25"
+            />
+            <path
+              d="M247 60h34M247 75h44M247 90h37"
+              stroke="#f5f5f4"
+              strokeOpacity="0.35"
+              strokeWidth="3"
+            />
             <circle cx="288" cy="113" fill="#fbbf24" r="4" />
-            <text className={labelClass} x="246" y="132">CORE / DC / AZURE</text>
+            <text className={labelClass} x="246" y="132">
+              CORE / DC / AZURE
+            </text>
           </g>
         </svg>
       </div>
@@ -152,9 +190,26 @@ function ServiceDrawing({ slug }: { slug: string }) {
               <stop offset="1" stopColor="#10b981" />
             </linearGradient>
           </defs>
-          <path d="M44 42h74M44 75h74M44 108h74M202 42h74M202 75h74M202 108h74" stroke="#fbbf24" strokeOpacity="0.32" strokeWidth="2" />
-          <path d="M160 29l53 19v34c0 29-19 48-53 59-34-11-53-30-53-59V48z" fill="#1c1917" stroke="url(#security-shield)" strokeWidth="2" />
-          <path d="M139 79l14 14 31-35" fill="none" stroke="#fef3c7" strokeLinecap="round" strokeLinejoin="round" strokeWidth="6" />
+          <path
+            d="M44 42h74M44 75h74M44 108h74M202 42h74M202 75h74M202 108h74"
+            stroke="#fbbf24"
+            strokeOpacity="0.32"
+            strokeWidth="2"
+          />
+          <path
+            d="M160 29l53 19v34c0 29-19 48-53 59-34-11-53-30-53-59V48z"
+            fill="#1c1917"
+            stroke="url(#security-shield)"
+            strokeWidth="2"
+          />
+          <path
+            d="M139 79l14 14 31-35"
+            fill="none"
+            stroke="#fef3c7"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="6"
+          />
           {[
             [46, 31, "USERS"],
             [46, 64, "GUEST"],
@@ -164,8 +219,23 @@ function ServiceDrawing({ slug }: { slug: string }) {
             [226, 97, "OT"],
           ].map(([x, y, label]) => (
             <g key={label as string}>
-              <rect fill="#111111" height="24" rx="8" stroke="#ffffff" strokeOpacity="0.12" width="70" x={x as number} y={y as number} />
-              <text className={labelClass} x={(x as number) + 14} y={(y as number) + 16}>{label}</text>
+              <rect
+                fill="#111111"
+                height="24"
+                rx="8"
+                stroke="#ffffff"
+                strokeOpacity="0.12"
+                width="70"
+                x={x as number}
+                y={y as number}
+              />
+              <text
+                className={labelClass}
+                x={(x as number) + 14}
+                y={(y as number) + 16}
+              >
+                {label}
+              </text>
             </g>
           ))}
         </svg>
@@ -177,7 +247,12 @@ function ServiceDrawing({ slug }: { slug: string }) {
     return (
       <div className={frameClass}>
         <svg aria-hidden="true" className="h-full w-full" viewBox="0 0 320 150">
-          <path d="M38 34h244M38 76h244M38 118h244" stroke="#fbbf24" strokeOpacity="0.22" strokeWidth="2" />
+          <path
+            d="M38 34h244M38 76h244M38 118h244"
+            stroke="#fbbf24"
+            strokeOpacity="0.22"
+            strokeWidth="2"
+          />
           {[
             [58, 21, 0, "IT"],
             [188, 21, 1, "DMZ"],
@@ -193,11 +268,29 @@ function ServiceDrawing({ slug }: { slug: string }) {
                 stroke={Number(index) % 2 === 0 ? "#fbbf24" : "#34d399"}
                 strokeOpacity="0.45"
               />
-              <circle cx={(x as number) + 13} cy={(y as number) + 17} fill="#fef3c7" r="4" opacity="0.75" />
-              <text className={labelClass} x={(x as number) + 28} y={(y as number) + 21}>{label}</text>
+              <circle
+                cx={(x as number) + 13}
+                cy={(y as number) + 17}
+                fill="#fef3c7"
+                r="4"
+                opacity="0.75"
+              />
+              <text
+                className={labelClass}
+                x={(x as number) + 28}
+                y={(y as number) + 21}
+              >
+                {label}
+              </text>
             </g>
           ))}
-          <path d="M151 33v86M169 33v86" stroke="#34d399" strokeDasharray="4 5" strokeOpacity="0.45" strokeWidth="2" />
+          <path
+            d="M151 33v86M169 33v86"
+            stroke="#34d399"
+            strokeDasharray="4 5"
+            strokeOpacity="0.45"
+            strokeWidth="2"
+          />
         </svg>
       </div>
     );
@@ -207,20 +300,60 @@ function ServiceDrawing({ slug }: { slug: string }) {
     return (
       <div className={frameClass}>
         <svg aria-hidden="true" className="h-full w-full" viewBox="0 0 320 150">
-          <path d="M76 42C118 17 191 17 242 44M76 108c42 25 115 25 166-2" fill="none" stroke="#fbbf24" strokeDasharray="6 6" strokeWidth="2" />
-          <path d="M76 75h168" stroke="#34d399" strokeDasharray="4 6" strokeOpacity="0.75" strokeWidth="2" />
+          <path
+            d="M76 42C118 17 191 17 242 44M76 108c42 25 115 25 166-2"
+            fill="none"
+            stroke="#fbbf24"
+            strokeDasharray="6 6"
+            strokeWidth="2"
+          />
+          <path
+            d="M76 75h168"
+            stroke="#34d399"
+            strokeDasharray="4 6"
+            strokeOpacity="0.75"
+            strokeWidth="2"
+          />
           <g>
-            <path d="M36 38h55l16 16v43L91 113H36L20 97V54z" fill="#111827" stroke="#fbbf24" strokeOpacity="0.55" />
-            <text className={labelClass} x="43" y="80">BRANCH</text>
+            <path
+              d="M36 38h55l16 16v43L91 113H36L20 97V54z"
+              fill="#111827"
+              stroke="#fbbf24"
+              strokeOpacity="0.55"
+            />
+            <text className={labelClass} x="43" y="80">
+              BRANCH
+            </text>
           </g>
           <g>
-            <circle cx="160" cy="75" fill="#1c1917" r="34" stroke="#fbbf24" strokeWidth="2" />
-            <path d="M143 75h34M160 58v34" stroke="#fef3c7" strokeLinecap="round" strokeWidth="4" />
-            <text className={labelClass} x="143" y="119">SD-WAN</text>
+            <circle
+              cx="160"
+              cy="75"
+              fill="#1c1917"
+              r="34"
+              stroke="#fbbf24"
+              strokeWidth="2"
+            />
+            <path
+              d="M143 75h34M160 58v34"
+              stroke="#fef3c7"
+              strokeLinecap="round"
+              strokeWidth="4"
+            />
+            <text className={labelClass} x="143" y="119">
+              SD-WAN
+            </text>
           </g>
           <g>
-            <path d="M233 52c5-18 37-21 47-4 21 0 27 28 8 40h-62c-20-8-14-35 7-36z" fill="#153428" stroke="#34d399" strokeOpacity="0.58" />
-            <text className={labelClass} x="244" y="79">CLOUD</text>
+            <path
+              d="M233 52c5-18 37-21 47-4 21 0 27 28 8 40h-62c-20-8-14-35 7-36z"
+              fill="#153428"
+              stroke="#34d399"
+              strokeOpacity="0.58"
+            />
+            <text className={labelClass} x="244" y="79">
+              CLOUD
+            </text>
           </g>
         </svg>
       </div>
@@ -231,7 +364,12 @@ function ServiceDrawing({ slug }: { slug: string }) {
     return (
       <div className={frameClass}>
         <svg aria-hidden="true" className="h-full w-full" viewBox="0 0 320 150">
-          <path d="M74 76h60M185 76h60M160 47v-25M160 103v25" stroke="#fbbf24" strokeDasharray="5 5" strokeWidth="2" />
+          <path
+            d="M74 76h60M185 76h60M160 47v-25M160 103v25"
+            stroke="#fbbf24"
+            strokeDasharray="5 5"
+            strokeWidth="2"
+          />
           {[
             [34, 52, "API"],
             [122, 18, "GIT"],
@@ -239,13 +377,42 @@ function ServiceDrawing({ slug }: { slug: string }) {
             [236, 52, "REPORT"],
           ].map(([x, y, label]) => (
             <g key={label as string}>
-              <path d={`M${x as number} ${y as number}h52l12 12v30h-64z`} fill="#111827" stroke="#ffffff" strokeOpacity="0.2" />
-              <path d={`M${(x as number) + 12} ${(y as number) + 15}h27M${(x as number) + 12} ${(y as number) + 28}h38`} stroke="#f5f5f4" strokeOpacity="0.35" />
-              <text className={labelClass} x={(x as number) + 14} y={(y as number) + 50}>{label}</text>
+              <path
+                d={`M${x as number} ${y as number}h52l12 12v30h-64z`}
+                fill="#111827"
+                stroke="#ffffff"
+                strokeOpacity="0.2"
+              />
+              <path
+                d={`M${(x as number) + 12} ${(y as number) + 15}h27M${(x as number) + 12} ${(y as number) + 28}h38`}
+                stroke="#f5f5f4"
+                strokeOpacity="0.35"
+              />
+              <text
+                className={labelClass}
+                x={(x as number) + 14}
+                y={(y as number) + 50}
+              >
+                {label}
+              </text>
             </g>
           ))}
-          <circle cx="160" cy="75" fill="#1c1917" r="27" stroke="#34d399" strokeWidth="2" />
-          <path d="M148 76l8 8 17-20" fill="none" stroke="#d1fae5" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4" />
+          <circle
+            cx="160"
+            cy="75"
+            fill="#1c1917"
+            r="27"
+            stroke="#34d399"
+            strokeWidth="2"
+          />
+          <path
+            d="M148 76l8 8 17-20"
+            fill="none"
+            stroke="#d1fae5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="4"
+          />
         </svg>
       </div>
     );
@@ -254,14 +421,37 @@ function ServiceDrawing({ slug }: { slug: string }) {
   return (
     <div className={frameClass}>
       <svg aria-hidden="true" className="h-full w-full" viewBox="0 0 320 150">
-        <path d="M48 33h224a12 12 0 0 1 12 12v76H36V45a12 12 0 0 1 12-12z" fill="#111111" stroke="#ffffff" strokeOpacity="0.18" />
+        <path
+          d="M48 33h224a12 12 0 0 1 12 12v76H36V45a12 12 0 0 1 12-12z"
+          fill="#111111"
+          stroke="#ffffff"
+          strokeOpacity="0.18"
+        />
         <path d="M36 56h248" stroke="#ffffff" strokeOpacity="0.14" />
         <circle cx="56" cy="45" fill="#fbbf24" r="4" />
         <circle cx="70" cy="45" fill="#34d399" r="4" />
-        <path d="M59 76h73v31H59z" fill="#3f2f08" stroke="#fbbf24" strokeOpacity="0.55" />
-        <path d="M151 77h91M151 93h71M151 109h52" stroke="#f5f5f4" strokeLinecap="round" strokeOpacity="0.4" strokeWidth="7" />
-        <path d="M132 130h56M112 140h96" stroke="#ffffff" strokeOpacity="0.2" strokeWidth="4" />
-        <text className={labelClass} x="70" y="96">SITE</text>
+        <path
+          d="M59 76h73v31H59z"
+          fill="#3f2f08"
+          stroke="#fbbf24"
+          strokeOpacity="0.55"
+        />
+        <path
+          d="M151 77h91M151 93h71M151 109h52"
+          stroke="#f5f5f4"
+          strokeLinecap="round"
+          strokeOpacity="0.4"
+          strokeWidth="7"
+        />
+        <path
+          d="M132 130h56M112 140h96"
+          stroke="#ffffff"
+          strokeOpacity="0.2"
+          strokeWidth="4"
+        />
+        <text className={labelClass} x="70" y="96">
+          SITE
+        </text>
       </svg>
     </div>
   );

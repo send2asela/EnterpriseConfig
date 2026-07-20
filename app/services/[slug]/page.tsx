@@ -9,6 +9,287 @@ type ServicePageProps = {
   }>;
 };
 
+function EnterpriseNetworkArchitectureDiagram() {
+  const text = "#1f2937";
+  const muted = "#64748b";
+  const blue = "#0ea5e9";
+  const darkBlue = "#0369a1";
+  const green = "#059669";
+  const amber = "#d97706";
+  const red = "#dc2626";
+
+  return (
+    <figure className="overflow-hidden rounded-[28px] border border-white/10 bg-stone-50 p-4 shadow-[0_24px_80px_rgba(0,0,0,0.35)]">
+      <div className="overflow-x-auto">
+        <svg
+          aria-labelledby="enterprise-network-diagram-title"
+          className="min-w-[980px]"
+          role="img"
+          viewBox="0 0 1180 760"
+        >
+          <title id="enterprise-network-diagram-title">
+            Enterprise HA network architecture diagram
+          </title>
+          <defs>
+            <marker
+              id="arrow-blue"
+              markerHeight="8"
+              markerWidth="8"
+              orient="auto"
+              refX="7"
+              refY="4"
+            >
+              <path d="M0 0l8 4-8 4z" fill={blue} />
+            </marker>
+            <marker
+              id="arrow-green"
+              markerHeight="8"
+              markerWidth="8"
+              orient="auto"
+              refX="7"
+              refY="4"
+            >
+              <path d="M0 0l8 4-8 4z" fill={green} />
+            </marker>
+            <filter id="soft-shadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow
+                dx="0"
+                dy="8"
+                floodColor="#0f172a"
+                floodOpacity="0.16"
+                stdDeviation="8"
+              />
+            </filter>
+          </defs>
+
+          <rect fill="#f8fafc" height="760" rx="28" width="1180" />
+
+          <g>
+            <text fill={text} fontSize="26" fontWeight="700" x="34" y="48">
+              Enterprise HA Network Design
+            </text>
+            <text fill={muted} fontSize="14" x="34" y="72">
+              Fortinet edge, Cisco campus, hybrid identity, Azure cloud, VPN,
+              servers, and segmented access zones
+            </text>
+          </g>
+
+          <g stroke="#cbd5e1" strokeDasharray="8 8" strokeWidth="2">
+            <line x1="28" x2="1152" y1="126" y2="126" />
+            <line x1="28" x2="1152" y1="316" y2="316" />
+            <line x1="28" x2="1152" y1="520" y2="520" />
+          </g>
+
+          <g fill={darkBlue} fontSize="22" fontWeight="700">
+            <text x="940" y="112">Internet / Cloud Zone</text>
+            <text x="905" y="302">Enterprise DMZ and Security Edge</text>
+            <text x="884" y="506">Campus, Server, and Identity Zone</text>
+            <text x="878" y="710">Access, Branch, and Remote User Zone</text>
+          </g>
+
+          <g filter="url(#soft-shadow)">
+            <path
+              d="M910 48c18-42 89-45 113-6 38-4 73 24 75 60 44 6 62 61 28 91H897c-47-19-35-88 13-90z"
+              fill="#e0f2fe"
+              stroke={blue}
+              strokeWidth="3"
+            />
+            <text fill={darkBlue} fontSize="24" fontWeight="700" x="963" y="120">
+              Internet
+            </text>
+            <text fill={darkBlue} fontSize="14" fontWeight="600" x="943" y="150">
+              SaaS / Azure / Public DNS
+            </text>
+          </g>
+
+          <g filter="url(#soft-shadow)">
+            <rect fill="#ffffff" height="86" rx="12" stroke="#bae6fd" width="156" x="704" y="70" />
+            <rect fill="#dbeafe" height="18" rx="4" width="110" x="727" y="92" />
+            <rect fill="#bfdbfe" height="18" rx="4" width="88" x="727" y="120" />
+            <text fill={darkBlue} fontSize="13" fontWeight="700" x="726" y="146">
+              Azure vNet
+            </text>
+          </g>
+
+          <g stroke={blue} strokeWidth="4">
+            <line markerEnd="url(#arrow-blue)" x1="860" x2="907" y1="112" y2="112" />
+            <line markerEnd="url(#arrow-blue)" x1="614" x2="704" y1="180" y2="112" />
+          </g>
+
+          <g filter="url(#soft-shadow)">
+            <rect fill="#ffffff" height="96" rx="12" stroke="#fed7aa" width="170" x="70" y="160" />
+            <text fill={text} fontSize="15" fontWeight="700" x="92" y="190">
+              Dual ISP Edge
+            </text>
+            <line stroke={amber} strokeWidth="5" x1="100" x2="210" y1="212" y2="212" />
+            <circle cx="112" cy="232" fill={amber} r="8" />
+            <circle cx="200" cy="232" fill={green} r="8" />
+            <text fill={muted} fontSize="12" x="94" y="250">
+              Fiber + backup circuit
+            </text>
+          </g>
+
+          <g filter="url(#soft-shadow)">
+            <rect fill="#fee2e2" height="72" rx="10" stroke={red} strokeWidth="3" width="106" x="333" y="154" />
+            <rect fill="#fee2e2" height="72" rx="10" stroke={red} strokeWidth="3" width="106" x="493" y="154" />
+            <path d="M359 180h54M359 198h54M519 180h54M519 198h54" stroke={red} strokeWidth="3" />
+            <text fill={red} fontSize="13" fontWeight="700" x="342" y="246">
+              FortiGate HA-A
+            </text>
+            <text fill={red} fontSize="13" fontWeight="700" x="502" y="246">
+              FortiGate HA-B
+            </text>
+          </g>
+
+          <path
+            d="M240 206h93M439 190h54M439 210h54M599 190h92M599 210h88"
+            fill="none"
+            stroke={green}
+            strokeWidth="4"
+          />
+          <path d="M386 226v68M546 226v68" stroke={green} strokeWidth="4" />
+          <path d="M386 294h160M386 294l160-68M546 294L386 226" stroke={green} strokeOpacity="0.85" strokeWidth="3" />
+
+          <g filter="url(#soft-shadow)">
+            <rect fill="#ffffff" height="86" rx="12" stroke="#cbd5e1" width="150" x="705" y="178" />
+            <text fill={text} fontSize="14" fontWeight="700" x="724" y="207">
+              External DMZ
+            </text>
+            <text fill={muted} fontSize="12" x="724" y="230">
+              Reverse proxy
+            </text>
+            <text fill={muted} fontSize="12" x="724" y="248">
+              Published services
+            </text>
+          </g>
+
+          <g filter="url(#soft-shadow)">
+            <rect fill="#ffffff" height="92" rx="12" stroke="#bbf7d0" width="168" x="76" y="348" />
+            <text fill={text} fontSize="15" fontWeight="700" x="96" y="378">
+              Identity Services
+            </text>
+            <text fill={muted} fontSize="12" x="96" y="402">
+              AD DS / DNS / DHCP
+            </text>
+            <text fill={muted} fontSize="12" x="96" y="420">
+              Entra ID sync + MFA
+            </text>
+          </g>
+
+          <g filter="url(#soft-shadow)">
+            <rect fill="#e0f2fe" height="86" rx="12" stroke={blue} strokeWidth="3" width="106" x="332" y="360" />
+            <rect fill="#e0f2fe" height="86" rx="12" stroke={blue} strokeWidth="3" width="106" x="494" y="360" />
+            <path d="M354 389h62M354 410h62M516 389h62M516 410h62" stroke={darkBlue} strokeWidth="4" />
+            <text fill={darkBlue} fontSize="13" fontWeight="700" x="337" y="466">
+              Cisco Core A
+            </text>
+            <text fill={darkBlue} fontSize="13" fontWeight="700" x="499" y="466">
+              Cisco Core B
+            </text>
+          </g>
+
+          <path
+            d="M244 394h88M438 382h56M438 424h56M546 318v42M386 318v42M438 402h56M438 382l56 42M494 382l-56 42"
+            fill="none"
+            stroke={green}
+            strokeWidth="4"
+          />
+
+          <g filter="url(#soft-shadow)">
+            <rect fill="#ffffff" height="114" rx="12" stroke="#cbd5e1" width="180" x="674" y="350" />
+            <text fill={text} fontSize="15" fontWeight="700" x="698" y="380">
+              Server Networks
+            </text>
+            <rect fill="#f1f5f9" height="16" rx="3" width="118" x="704" y="396" />
+            <rect fill="#f1f5f9" height="16" rx="3" width="96" x="704" y="421" />
+            <text fill={muted} fontSize="12" x="704" y="452">
+              Apps / DB / backup / monitoring
+            </text>
+          </g>
+
+          <path d="M600 402h74" stroke={green} strokeWidth="4" />
+
+          <g filter="url(#soft-shadow)">
+            <rect fill="#fef3c7" height="76" rx="12" stroke={amber} strokeWidth="3" width="130" x="924" y="356" />
+            <text fill="#92400e" fontSize="15" fontWeight="700" x="950" y="386">
+              SSL VPN
+            </text>
+            <text fill="#92400e" fontSize="12" x="945" y="409">
+              SAML + MFA
+            </text>
+          </g>
+          <path d="M546 226c128 10 277 47 378 130" fill="none" stroke={amber} strokeDasharray="7 7" strokeWidth="3" />
+
+          <g filter="url(#soft-shadow)">
+            <rect fill="#e0f2fe" height="72" rx="12" stroke={blue} strokeWidth="3" width="112" x="410" y="590" />
+            <rect fill="#e0f2fe" height="72" rx="12" stroke={blue} strokeWidth="3" width="112" x="548" y="590" />
+            <rect fill="#e0f2fe" height="72" rx="12" stroke={blue} strokeWidth="3" width="112" x="686" y="590" />
+            <text fill={darkBlue} fontSize="13" fontWeight="700" x="432" y="634">
+              Access 1
+            </text>
+            <text fill={darkBlue} fontSize="13" fontWeight="700" x="570" y="634">
+              Access 2
+            </text>
+            <text fill={darkBlue} fontSize="13" fontWeight="700" x="708" y="634">
+              Access 3
+            </text>
+          </g>
+
+          <path
+            d="M386 446l80 144M546 446l58 144M546 446l196 144M386 446l356 144"
+            stroke={blue}
+            strokeWidth="4"
+          />
+
+          <g filter="url(#soft-shadow)">
+            <rect fill="#ffffff" height="90" rx="12" stroke="#cbd5e1" width="180" x="70" y="590" />
+            <text fill={text} fontSize="15" fontWeight="700" x="95" y="622">
+              Branch / Remote Site
+            </text>
+            <text fill={muted} fontSize="12" x="95" y="646">
+              IPsec or SD-WAN overlay
+            </text>
+            <text fill={muted} fontSize="12" x="95" y="664">
+              Local breakout + templates
+            </text>
+          </g>
+          <path d="M240 620c78-80 177-130 292-158" fill="none" stroke={amber} strokeDasharray="6 7" strokeWidth="3" />
+
+          <g filter="url(#soft-shadow)">
+            <rect fill="#ecfdf5" height="90" rx="12" stroke={green} strokeWidth="3" width="174" x="900" y="584" />
+            <text fill={green} fontSize="15" fontWeight="700" x="926" y="617">
+              Management Zone
+            </text>
+            <text fill="#047857" fontSize="12" x="926" y="641">
+              FortiAnalyzer / SIEM
+            </text>
+            <text fill="#047857" fontSize="12" x="926" y="659">
+              Jump host / admin access
+            </text>
+          </g>
+          <path d="M900 628H798" stroke={green} strokeDasharray="6 6" strokeWidth="3" />
+
+          <g fill={muted} fontSize="12">
+            <circle cx="54" cy="724" fill={green} r="5" />
+            <text x="66" y="728">Redundant production path</text>
+            <circle cx="252" cy="724" fill={blue} r="5" />
+            <text x="264" y="728">Campus access uplinks</text>
+            <circle cx="426" cy="724" fill={amber} r="5" />
+            <text x="438" y="728">VPN / SD-WAN / failover path</text>
+            <circle cx="660" cy="724" fill={red} r="5" />
+            <text x="672" y="728">Firewall security boundary</text>
+          </g>
+        </svg>
+      </div>
+      <figcaption className="mt-3 text-sm leading-6 text-stone-600">
+        Sample enterprise design concept showing redundant Fortinet edge,
+        Cisco core, hybrid identity, server networks, Azure connectivity,
+        branch access, SSL VPN, and management visibility.
+      </figcaption>
+    </figure>
+  );
+}
+
 export function generateStaticParams() {
   return servicePages.map((service) => ({
     slug: service.slug,
@@ -115,6 +396,10 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 {service.design.description}
               </p>
             </div>
+
+            {service.slug === "enterprise-networking" ? (
+              <EnterpriseNetworkArchitectureDiagram />
+            ) : null}
 
             <div className="grid gap-4 lg:grid-cols-3">
               {service.design.zones.map((zone, index) => (
