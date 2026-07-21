@@ -493,255 +493,338 @@ function OtPurdueModelDiagram() {
   const levels = [
     {
       level: "4-5",
-      name: "Enterprise",
-      color: "#36d399",
-      y: 118,
-      detail: "Business systems / Internet access",
+      name: "ENTERPRISE",
+      color: "#2563eb",
+      y: 170,
+      left: ["Business systems", "Internet access"],
+      rightTitle: "PERIMETER",
+      right: ["IPS / SSL Inspection", "Web Filtering", "DLP / Anti-Malware"],
     },
     {
       level: "3.5",
       name: "Industrial DMZ",
-      color: "#fbbf24",
-      y: 222,
-      detail: "Patch / AV / Jump host / Historian",
+      color: "#16a34a",
+      y: 300,
+      left: ["Patch / AV / Jump host", "Historian / Data Broker"],
+      rightTitle: "INDUSTRIAL DMZ",
+      right: ["Secure Proxy", "Jump Server", "Historian", "Data Diode (Optional)"],
     },
     {
       level: "3",
       name: "Operations",
       color: "#f59e0b",
-      y: 326,
-      detail: "Operations systems / ICS DMZ",
+      y: 430,
+      left: ["Operations systems", "ICS DMZ"],
+      rightTitle: "ICS DMZ",
+      right: ["Remote Access VPN", "Application Proxy", "Data Collection"],
     },
     {
       level: "2",
       name: "Supervisory Control",
-      color: "#fb923c",
-      y: 430,
-      detail: "SCADA / HMI / View / Control",
+      color: "#f97316",
+      y: 560,
+      left: ["SCADA / HMI / View / Control"],
+      rightTitle: "OT SEGMENT PROTECTION",
+      right: ["Application Control", "IPS for OT Protocols", "Allowlist / Denylist"],
     },
     {
       level: "1",
       name: "Basic Control",
       color: "#ef4444",
-      y: 534,
-      detail: "PLCs / RTUs / IEDs",
+      y: 690,
+      left: ["PLCs / RTUs / IEDs"],
+      rightTitle: "INDUSTRIAL SWITCHING",
+      right: ["Ruggedized Switching", "VLAN / QoS / ACL", "Redundant Topology"],
     },
     {
       level: "0",
       name: "Process",
-      color: "#f97316",
-      y: 638,
-      detail: "Sensors / actuators / physical process",
+      color: "#64748b",
+      y: 820,
+      left: ["Sensors / Actuators", "Physical Process"],
+      rightTitle: "",
+      right: [],
     },
   ];
 
+  const renderFortinetMark = (x: number, y: number, scale = 1) => (
+    <g transform={`translate(${x} ${y}) scale(${scale})`}>
+      {[0, 1, 2].map((col) => (
+        <rect fill="#ef2929" height="12" key={`top-${col}`} rx="2" width="20" x={col * 25} y="0" />
+      ))}
+      {[0, 1, 2].map((col) => (
+        <rect fill="#ef2929" height="12" key={`bottom-${col}`} rx="2" width="20" x={col * 25} y="18" />
+      ))}
+    </g>
+  );
+
+  const renderDevice = (x: number, y: number, width = 154) => (
+    <g filter="url(#ot-white-shadow)">
+      <rect fill="#e5e7eb" height="54" rx="5" stroke="#cbd5e1" width={width} x={x} y={y} />
+      <rect fill="#111827" height="24" rx="2" width={width - 42} x={x + 22} y={y + 22} />
+      {renderFortinetMark(x + 30, y + 11, 0.48)}
+      <circle cx={x + width - 19} cy={y + 36} fill="#22c55e" r="5" />
+    </g>
+  );
+
+  const renderSimpleIcon = (x: number, y: number, label: string) => (
+    <g>
+      <rect fill="#ffffff" height="58" rx="6" stroke="#cbd5e1" width="72" x={x} y={y} />
+      <rect fill="#111827" height="34" rx="4" width="34" x={x + 19} y={y + 10} />
+      <path d={`M${x + 27} ${y + 26}h18M${x + 27} ${y + 34}h12`} stroke="#60a5fa" strokeWidth="3" />
+      <text fill="#111827" fontSize="10" fontWeight="800" textAnchor="middle" x={x + 36} y={y + 82}>
+        {label}
+      </text>
+    </g>
+  );
+
+  const renderSidePanel = (
+    x: number,
+    y: number,
+    title: string[],
+    items: [string, string][],
+    height: number,
+  ) => (
+    <g>
+      <rect fill="#ffffff" height={height} rx="10" stroke="#cbd5e1" width="210" x={x} y={y} />
+      {title.map((line, index) => (
+        <text fill="#1e3a8a" fontSize="13" fontWeight="900" key={line} x={x + 18} y={y + 28 + index * 18}>
+          {line}
+        </text>
+      ))}
+      {items.map(([name, desc], index) => (
+        <g key={name}>
+          <rect fill="#ffffff" height="52" rx="6" stroke="#cbd5e1" width="52" x={x + 18} y={y + 58 + index * 70} />
+          <circle cx={x + 44} cy={y + 84 + index * 70} fill="none" r="15" stroke="#047857" strokeWidth="2" />
+          <text fill="#111827" fontSize="12" fontWeight="800" x={x + 84} y={y + 77 + index * 70}>
+            {name}
+          </text>
+          <text fill="#111827" fontSize="10" x={x + 84} y={y + 94 + index * 70}>
+            {desc}
+          </text>
+        </g>
+      ))}
+    </g>
+  );
+
   return (
-    <figure className="overflow-hidden rounded-[28px] border border-emerald-300/20 bg-[#020b12] p-4 shadow-[0_24px_80px_rgba(0,0,0,0.35)]">
+    <figure className="overflow-hidden rounded-[28px] border border-white/10 bg-stone-50 p-4 shadow-[0_24px_80px_rgba(0,0,0,0.35)]">
       <div className="overflow-x-auto">
         <svg
           aria-labelledby="ot-purdue-diagram-title"
-          className="min-w-[980px]"
+          className="min-w-[1180px]"
           role="img"
-          viewBox="0 0 1280 760"
+          viewBox="0 0 1536 1024"
         >
           <title id="ot-purdue-diagram-title">
-            Securing the Purdue model with FortiGate OT reference architecture
+            Fortinet OT Purdue model reference architecture
           </title>
           <defs>
-            <linearGradient id="ot-bg" x1="0" x2="1" y1="0" y2="1">
-              <stop stopColor="#020617" />
-              <stop offset="0.55" stopColor="#062033" />
-              <stop offset="1" stopColor="#020617" />
-            </linearGradient>
-            <linearGradient id="ot-panel" x1="0" x2="1">
-              <stop stopColor="#07111f" stopOpacity="0.95" />
-              <stop offset="1" stopColor="#0b2436" stopOpacity="0.9" />
-            </linearGradient>
-            <filter id="ot-glow" x="-20%" y="-20%" width="140%" height="140%">
-              <feDropShadow dx="0" dy="0" floodColor="#22d3ee" floodOpacity="0.35" stdDeviation="5" />
-            </filter>
-            <filter id="ot-card-shadow" x="-20%" y="-20%" width="140%" height="140%">
-              <feDropShadow dx="0" dy="10" floodColor="#000000" floodOpacity="0.35" stdDeviation="8" />
+            <filter id="ot-white-shadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="8" floodColor="#0f172a" floodOpacity="0.18" stdDeviation="7" />
             </filter>
           </defs>
 
-          <rect fill="url(#ot-bg)" height="760" rx="28" width="1280" />
-          <g opacity="0.22">
-            <path d="M742 114h18v362h-18zM790 80h22v396h-22zM846 132h24v344h-24zM910 98h20v378h-20zM982 122h28v354h-28zM1058 72h24v404h-24zM1130 116h30v360h-30z" fill="#38bdf8" />
-            <path d="M700 476h500" stroke="#38bdf8" strokeOpacity="0.6" />
-            <path d="M760 80c16-36 58-28 68 0M1058 72c10-24 44-18 50 4M1130 116c18-42 60-30 68-2" fill="none" stroke="#38bdf8" strokeOpacity="0.35" strokeWidth="3" />
-          </g>
-          <g opacity="0.2" stroke="#22d3ee">
-            <path d="M44 520h126l35-35h124M44 570h214l52 46h170M44 650h320l40-42h96" />
-            <circle cx="44" cy="520" r="4" fill="#22d3ee" />
-            <circle cx="44" cy="570" r="4" fill="#22d3ee" />
-            <circle cx="44" cy="650" r="4" fill="#22d3ee" />
+          <rect fill="#ffffff" height="1024" rx="18" width="1536" />
+
+          <text fill="#111827" fontSize="32" fontWeight="900" x="32" y="52">FORTINET</text>
+          {renderFortinetMark(83, 28, 0.5)}
+          <text fill="#0f172a" fontSize="33" fontWeight="900" x="32" y="112">SECURING THE</text>
+          <text fill="#047857" fontSize="42" fontWeight="900" x="32" y="160">PURDUE MODEL</text>
+          <text fill="#475569" fontSize="18" x="32" y="194">A FortiGate OT Reference Architecture</text>
+
+          <g>
+            {[
+              ["DEFEND EVERY LEVEL", "Comprehensive protection", "across IT and OT environments"],
+              ["SEGMENT & CONTROL", "Enforce secure segmentation", "and access policies"],
+              ["VISIBILITY & THREAT DETECTION", "End-to-end visibility from IT", "to industrial assets"],
+              ["BUILT FOR AVAILABILITY", "High availability, redundancy", "and industrial resilience"],
+            ].map(([title, lineOne, lineTwo], index) => (
+              <g key={title}>
+                <rect fill="#ffffff" height="60" rx="8" stroke="#cbd5e1" width="64" x="32" y={238 + index * 95} />
+                <circle cx="64" cy={268 + index * 95} fill="none" r="18" stroke="#047857" strokeWidth="3" />
+                <path d={`M54 ${268 + index * 95}l8 8 15-21`} fill="none" stroke="#047857" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" />
+                <text fill="#111827" fontSize="14" fontWeight="900" x="110" y={257 + index * 95}>{title}</text>
+                <text fill="#111827" fontSize="12" x="110" y={281 + index * 95}>{lineOne}</text>
+                <text fill="#111827" fontSize="12" x="110" y={299 + index * 95}>{lineTwo}</text>
+              </g>
+            ))}
           </g>
 
           <g>
-            <rect fill="#ef2929" height="26" rx="5" width="26" x="44" y="44" />
-            <rect fill="#ef2929" height="26" rx="5" width="26" x="77" y="44" />
-            <rect fill="#ef2929" height="26" rx="5" width="26" x="110" y="44" />
-            <rect fill="#ef2929" height="26" rx="5" width="26" x="44" y="78" />
-            <rect fill="#ef2929" height="26" rx="5" width="26" x="77" y="78" />
-            <rect fill="#ef2929" height="26" rx="5" width="26" x="110" y="78" />
-          </g>
-
-          <text fill="#f8fafc" fontSize="56" fontWeight="900" letterSpacing="2" x="44" y="184">
-            SECURING THE
-          </text>
-          <text fill="#34d399" fontSize="58" fontWeight="900" letterSpacing="2" x="44" y="252">
-            PURDUE MODEL
-          </text>
-          <text fill="#f8fafc" fontSize="28" fontWeight="800" x="46" y="312">
-            A FortiGate OT reference architecture
-          </text>
-          <line stroke="#34d399" strokeOpacity="0.65" strokeWidth="2" x1="46" x2="438" y1="342" y2="342" />
-
-          {[
-            ["DEFEND EVERY LEVEL", "of the OT environment"],
-            ["SEGMENT & CONTROL", "with FortiGate policy"],
-            ["VISIBILITY & THREAT DETECTION", "from IT to process"],
-            ["BUILT FOR AVAILABILITY", "and industrial resilience"],
-          ].map(([title, body], index) => (
-            <g key={title}>
-              <rect fill="#041521" height="55" rx="10" stroke="#34d399" strokeOpacity="0.55" width="55" x="46" y={378 + index * 72} />
-              <circle cx="73.5" cy={405 + index * 72} fill="none" r="16" stroke="#34d399" strokeWidth="3" />
-              <path d={`M65 ${405 + index * 72}l7 7 13-17`} fill="none" stroke="#34d399" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" />
-              <text fill="#f8fafc" fontSize="18" fontWeight="850" x="120" y={398 + index * 72}>
-                {title}
-              </text>
-              <text fill="#cbd5e1" fontSize="16" x="120" y={423 + index * 72}>
-                {body}
-              </text>
-            </g>
-          ))}
-
-          {levels.map((row) => (
-            <g key={row.level} filter="url(#ot-card-shadow)">
-              <rect fill="url(#ot-panel)" height="82" rx="8" stroke={row.color} strokeOpacity="0.55" width="242" x="494" y={row.y} />
-              <rect fill={row.color} height="82" rx="6" width="8" x="494" y={row.y} />
-              <text fill={row.color} fontSize="13" fontWeight="800" x="520" y={row.y + 28}>
-                LEVEL
-              </text>
-              <text fill={row.color} fontSize="22" fontWeight="900" x="570" y={row.y + 30}>
-                {row.level}
-              </text>
-              <text fill="#f8fafc" fontSize="18" fontWeight="900" x="520" y={row.y + 54}>
-                {row.name}
-              </text>
-              <text fill="#cbd5e1" fontSize="12" x="520" y={row.y + 72}>
-                {row.detail}
-              </text>
-            </g>
-          ))}
-
-          <g stroke="#22d3ee" strokeOpacity="0.55" strokeWidth="2">
-            <line x1="736" x2="842" y1="159" y2="159" />
-            <line x1="736" x2="842" y1="263" y2="263" />
-            <line x1="736" x2="842" y1="367" y2="367" />
-            <line x1="736" x2="842" y1="471" y2="471" />
-            <line x1="736" x2="842" y1="575" y2="575" />
-          </g>
-
-          {[
-            [842, 133, "FORTIGATE", "PERIMETER", "NGFW / IPS / SSL inspection"],
-            [842, 237, "FORTIGATE", "INTERNAL SEGMENTATION", "VLAN / Zone / Access control"],
-            [842, 341, "FORTIGATE", "ICS DMZ", "Remote access / Jump host"],
-            [842, 445, "FORTIGATE", "OT SEGMENT PROTECTION", "App control / IPS for OT"],
-            [870, 554, "INDUSTRIAL", "SWITCH", "Ruggedized plant network"],
-          ].map(([x, y, top, name, desc]) => (
-            <g key={`${top}-${name}`} filter="url(#ot-card-shadow)">
-              <rect fill="#e5e7eb" height="48" rx="4" stroke="#f8fafc" width="150" x={x as number} y={y as number} />
-              <rect fill="#111827" height="23" rx="2" width="112" x={(x as number) + 10} y={(y as number) + 17} />
-              <rect fill="#ef2929" height="6" rx="1" width="16" x={(x as number) + 56} y={(y as number) + 7} />
-              <rect fill="#ef2929" height="6" rx="1" width="16" x={(x as number) + 76} y={(y as number) + 7} />
-              <circle cx={(x as number) + 132} cy={(y as number) + 28} fill="#22c55e" r="4" />
-              <text fill="#f8fafc" fontSize="14" fontWeight="900" x={(x as number) + 166} y={(y as number) + 16}>
-                {top}
-              </text>
-              <text fill="#f8fafc" fontSize="13" fontWeight="850" x={(x as number) + 166} y={(y as number) + 36}>
-                {name}
-              </text>
-              <text fill="#cbd5e1" fontSize="11" x={(x as number) + 166} y={(y as number) + 57}>
-                {desc}
-              </text>
-            </g>
-          ))}
-
-          <g stroke="#34d399" strokeDasharray="4 5" strokeWidth="2">
-            <line x1="992" x2="1120" y1="159" y2="159" />
-            <line x1="992" x2="1120" y1="263" y2="263" />
-            <line x1="992" x2="1120" y1="367" y2="367" />
-            <line x1="992" x2="1120" y1="471" y2="471" />
-            <line x1="1020" x2="1120" y1="575" y2="575" />
-          </g>
-
-          <g filter="url(#ot-card-shadow)">
-            <rect fill="#062033" height="455" rx="12" stroke="#34d399" strokeOpacity="0.55" width="130" x="1110" y="170" />
             {[
-              ["FORTICENTER", "Centralized management"],
-              ["FORTIANALYZER", "Logging & analytics"],
-              ["FORTISIEM", "Event correlation"],
-              ["SECURITY FABRIC", "Threat intelligence"],
+              [416, "INTERNET", "ISP A", "internet"],
+              [608, "INTERNET", "ISP B", "internet"],
+              [800, "CLOUD SERVICES", "Microsoft 365, AWS, Azure", "cloud"],
+              [1002, "BUSINESS APPLICATIONS", "SaaS / CRM / ERP", "apps"],
+            ].map(([x, title, subtitle, kind], index) => (
+              <g key={`${title}-${index}`}>
+                <rect fill="#ffffff" height="90" rx="10" stroke="#cbd5e1" width="176" x={x as number} y="28" />
+                {kind === "internet" ? (
+                  <g>
+                    <circle cx={(x as number) + 46} cy="62" fill="none" r="18" stroke="#111827" strokeWidth="3" />
+                    <path d={`M${(x as number) + 28} 62h36M${(x as number) + 46} 44c9 11 9 25 0 36M${(x as number) + 46} 44c-9 11-9 25 0 36`} fill="none" stroke="#111827" strokeWidth="2" />
+                  </g>
+                ) : null}
+                {kind === "cloud" ? (
+                  <path d={`M${(x as number) + 38} 70c5-16 30-18 39-4 15-1 28 10 28 25 18 4 20 29 0 34H${(x as number) + 30}c-23-8-18-40 8-40z`} fill="none" stroke="#111827" strokeWidth="3" transform="translate(0 -24)" />
+                ) : null}
+                {kind === "apps" ? (
+                  <g stroke="#111827" strokeWidth="3">
+                    <path d={`M${(x as number) + 38} 80V48h42v32`} fill="none" />
+                    <path d={`M${(x as number) + 48} 80V60h22v20`} fill="none" />
+                    <path d={`M${(x as number) + 52} 56h4M${(x as number) + 64} 56h4M${(x as number) + 52} 66h4M${(x as number) + 64} 66h4`} />
+                  </g>
+                ) : null}
+                <text fill="#111827" fontSize="13" fontWeight="900" textAnchor="middle" x={(x as number) + 105} y="68">{title}</text>
+                <text fill="#111827" fontSize="12" textAnchor="middle" x={(x as number) + 88} y="88">{subtitle}</text>
+              </g>
+            ))}
+          </g>
+
+          <g>
+            {levels.map((level) => (
+              <g key={level.level}>
+                <rect fill={level.level === "0" ? "#f8fafc" : "#ffffff"} height="112" rx="8" stroke={level.color} strokeOpacity="0.38" width="850" x="388" y={level.y} />
+                <text fill={level.color} fontSize="15" fontWeight="900" x="402" y={level.y + 26}>LEVEL {level.level}</text>
+                <text fill={level.color} fontSize="14" fontWeight="900" x="402" y={level.y + 46}>{level.name}</text>
+                {level.left.map((line, index) => (
+                  <text fill="#111827" fontSize="12" key={line} x="402" y={level.y + 72 + index * 18}>{line}</text>
+                ))}
+                {level.rightTitle ? (
+                  <text fill={level.color} fontSize="13" fontWeight="900" x="1078" y={level.y + 28}>{level.rightTitle}</text>
+                ) : null}
+                {level.right.map((line, index) => (
+                  <text fill="#111827" fontSize="11" key={line} x="1080" y={level.y + 52 + index * 18}>• {line}</text>
+                ))}
+              </g>
+            ))}
+          </g>
+
+          <g stroke="#0057d9" strokeWidth="3">
+            <path d="M504 118v52h160v60" fill="none" />
+            <path d="M696 118v52h-32v60" fill="none" />
+            <path d="M888 118v52h40v60" fill="none" />
+            <path d="M1090 118v52H928v60" fill="none" />
+          </g>
+
+          {renderDevice(620, 205, 148)}
+          {renderDevice(895, 205, 148)}
+          <text fill="#111827" fontSize="12" fontWeight="900" textAnchor="middle" x="548" y="222">FortiGate 1800F</text>
+          <text fill="#111827" fontSize="12" fontWeight="900" textAnchor="middle" x="548" y="240">(HA Primary)</text>
+          <text fill="#ef4444" fontSize="11" fontWeight="900" textAnchor="middle" x="832" y="220">HA HEARTBEAT</text>
+          <path d="M768 230h127" stroke="#ef4444" strokeDasharray="7 6" strokeWidth="2" />
+
+          {renderDevice(620, 335, 148)}
+          {renderDevice(895, 335, 148)}
+          {renderDevice(620, 465, 148)}
+          {renderDevice(895, 465, 148)}
+          {renderDevice(620, 595, 148)}
+          {renderDevice(895, 595, 148)}
+          {renderDevice(628, 722, 132)}
+          {renderDevice(905, 722, 132)}
+
+          <g stroke="#047857" strokeWidth="2">
+            <path d="M694 259v76" />
+            <path d="M969 259v76" />
+            <path d="M694 259l275 76" />
+            <path d="M969 259l-275 76" />
+            <path d="M768 362h127" strokeDasharray="7 6" />
+          </g>
+          <g stroke="#f59e0b" strokeWidth="2">
+            <path d="M694 389v76" />
+            <path d="M969 389v76" />
+            <path d="M694 389l275 76" />
+            <path d="M969 389l-275 76" />
+            <path d="M768 492h127" strokeDasharray="7 6" />
+          </g>
+          <g stroke="#f97316" strokeWidth="2">
+            <path d="M694 519v76" />
+            <path d="M969 519v76" />
+            <path d="M694 519l275 76" />
+            <path d="M969 519l-275 76" />
+            <path d="M768 622h127" strokeDasharray="7 6" />
+          </g>
+          <g stroke="#ef4444" strokeWidth="2">
+            <path d="M694 649v73" />
+            <path d="M969 649v73" />
+            <path d="M760 749h145" />
+            <path d="M694 776v48M969 776v48" />
+          </g>
+
+          {[
+            [600, 852, "PLC"],
+            [724, 852, "HMI"],
+            [860, 852, "I/O"],
+            [984, 852, "ROBOT / ACTUATOR"],
+          ].map(([x, y, label]) => (
+            <g key={label as string}>
+              {renderSimpleIcon(x as number, y as number, label as string)}
+            </g>
+          ))}
+
+          <path d="M1215 230h50v520h-50" fill="none" stroke="#6d28d9" strokeDasharray="8 7" strokeWidth="2" />
+          <path d="M1215 360h50M1215 490h50M1215 620h50M1215 750h50" stroke="#6d28d9" strokeDasharray="8 7" strokeWidth="2" />
+
+          {renderSidePanel(1282, 135, ["CENTRALIZED MANAGEMENT", "& ANALYTICS"], [
+            ["FortiManager", "Centralized Management"],
+            ["FortiAnalyzer", "Logging & Analytics"],
+            ["FortiSIEM", "Event Correlation"],
+            ["FortiDeceptor", "Threat Detection"],
+            ["FortiNAC", "Network Access Control"],
+            ["Security Fabric", "Integrated Protection"],
+          ], 500)}
+
+          {renderSidePanel(1282, 660, ["MANAGEMENT NETWORK"], [
+            ["Out-of-Band Management", ""],
+            ["Monitoring & Alerting", ""],
+            ["Authentication (RADIUS / AD)", ""],
+            ["Syslog / NTP / DNS", ""],
+            ["Backup & Reporting", ""],
+          ], 200)}
+
+          <g>
+            <rect fill="#ffffff" height="166" rx="10" stroke="#cbd5e1" width="216" x="30" y="652" />
+            <text fill="#111827" fontSize="14" fontWeight="900" x="48" y="676">TRAFFIC FLOWS</text>
+            {[
+              ["#0057d9", "Internet / Cloud Access"],
+              ["#047857", "IT / Enterprise Traffic"],
+              ["#f59e0b", "OT / ICS Traffic"],
+              ["#6d28d9", "Management / Monitoring"],
+              ["#ef4444", "HA / Heartbeat"],
+            ].map(([color, label], index) => (
+              <g key={label}>
+                <line stroke={color} strokeDasharray={index === 3 ? "7 6" : undefined} strokeWidth="2" x1="48" x2="86" y1={704 + index * 24} y2={704 + index * 24} />
+                <text fill="#111827" fontSize="11" x="104" y={708 + index * 24}>{label}</text>
+              </g>
+            ))}
+          </g>
+
+          <g>
+            <rect fill="#ffffff" height="130" rx="10" stroke="#cbd5e1" width="1480" x="28" y="868" />
+            <text fill="#1e3a8a" fontSize="15" fontWeight="900" x="52" y="896">KEY BENEFITS</text>
+            {[
+              ["SECURE BY DESIGN", "Defense-in-depth across IT and OT"],
+              ["HIGH AVAILABILITY", "Redundant firewalls, switches and links"],
+              ["VISIBILITY", "Complete visibility across the industrial stack"],
+              ["COMPLIANCE READY", "Supports NIS2, IEC 62443, ISO 27001, and more"],
+              ["SCALABLE ARCHITECTURE", "Flexible design to grow with operations"],
+              ["OPERATIONAL EFFICIENCY", "Automated policies, centralized control"],
             ].map(([title, body], index) => (
               <g key={title}>
-                <rect fill="#07111f" height="88" rx="8" stroke="#34d399" strokeOpacity="0.35" width="110" x="1120" y={184 + index * 106} />
-                <circle cx="1175" cy={211 + index * 106} fill="none" r="15" stroke="#34d399" strokeWidth="2" />
-                <text fill="#34d399" fontSize="11" fontWeight="900" textAnchor="middle" x="1175" y={246 + index * 106}>
-                  {title}
-                </text>
-                <text fill="#cbd5e1" fontSize="10" textAnchor="middle" x="1175" y={263 + index * 106}>
-                  {body}
-                </text>
+                <circle cx={76 + index * 238} cy="944" fill="#f8fafc" r="28" stroke="#94a3b8" />
+                <text fill="#111827" fontSize="11" fontWeight="900" x={116 + index * 238} y="936">{title}</text>
+                <text fill="#111827" fontSize="10" x={116 + index * 238} y="956">{body}</text>
+                {index < 5 ? <line stroke="#cbd5e1" x1={252 + index * 238} x2={252 + index * 238} y1="914" y2="972" /> : null}
               </g>
             ))}
           </g>
-
-          <g>
-            <path d="M860 623h260" stroke="#ef4444" strokeWidth="3" />
-            <path d="M900 623v38M970 623v38M1040 623v38" stroke="#ef4444" strokeWidth="3" />
-            {[
-              [874, 670, "PLC"],
-              [944, 670, "HMI"],
-              [1014, 670, "I/O"],
-              [1084, 670, "ROBOT"],
-            ].map(([x, y, label]) => (
-              <g key={label as string}>
-                <rect fill="#07111f" height="50" rx="8" stroke="#94a3b8" strokeOpacity="0.65" width="56" x={x as number} y={y as number} />
-                <text fill="#e2e8f0" fontSize="11" fontWeight="800" textAnchor="middle" x={(x as number) + 28} y={(y as number) + 31}>
-                  {label}
-                </text>
-              </g>
-            ))}
-          </g>
-
-          <g filter="url(#ot-glow)">
-            <path d="M900 112c9-29 57-31 70-5 24-2 43 15 44 37 27 3 37 38 16 56H890c-31-13-24-58 10-59z" fill="#041521" stroke="#a7f3d0" strokeWidth="2" />
-            <text fill="#f8fafc" fontSize="15" fontWeight="850" textAnchor="middle" x="961" y="160">
-              INTERNET
-            </text>
-            <path d="M961 202v34" stroke="#22d3ee" strokeWidth="3" />
-          </g>
-
-          <rect fill="#020617" height="78" opacity="0.7" width="1280" y="682" />
-          <path d="M92 690l52 24 52-24v45l-52 20-52-20z" fill="#052e2b" stroke="#6ee7b7" strokeWidth="2" />
-          <rect fill="#ef2929" height="14" rx="2" width="14" x="126" y="717" />
-          <rect fill="#ef2929" height="14" rx="2" width="14" x="146" y="717" />
-          <rect fill="#ef2929" height="14" rx="2" width="14" x="166" y="717" />
-          <text fill="#f8fafc" fontSize="24" fontWeight="900" x="220" y="724">
-            STRONGER TOGETHER.
-          </text>
-          <text fill="#34d399" fontSize="19" fontWeight="850" x="220" y="750">
-            SECURE EVERY LEVEL. PROTECT WHAT MATTERS.
-          </text>
         </svg>
       </div>
-      <figcaption className="mt-3 text-sm leading-6 text-stone-300">
-        Dark FortiGate OT reference architecture concept for securing Purdue
-        model levels with perimeter controls, internal segmentation, ICS DMZ
-        services, OT segment protection, industrial switching, centralized
-        management, analytics, SIEM, and security-fabric visibility.
+      <figcaption className="mt-3 text-sm leading-6 text-stone-600">
+        Fortinet-style OT Purdue reference architecture with enterprise access,
+        industrial DMZ, operations, supervisory control, basic control, process
+        assets, centralized management, traffic-flow legend, and key benefits.
       </figcaption>
     </figure>
   );
