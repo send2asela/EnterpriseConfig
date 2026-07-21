@@ -704,18 +704,13 @@ function OtPurdueModelDiagram() {
           </g>
 
           <g fill="none" stroke="#0057d9" strokeWidth="3">
-            {[
-              [494, 146],
-              [724, 156],
-              [954, 166],
-              [1194, 176],
-            ].map(([sourceX, laneY]) => (
-              <g key={`${sourceX}-${laneY}`}>
-                <path d={`M${sourceX} 124v${laneY - 124}`} />
-                <path d={`M${sourceX} ${laneY}H733V220`} />
-                <path d={`M${sourceX} ${laneY}H1133V220`} />
-              </g>
-            ))}
+            <path d="M494 124v58" />
+            <path d="M724 124v58" />
+            <path d="M954 124v58" />
+            <path d="M1194 124v58" />
+            <path d="M494 182H1194" />
+            <path d="M733 182v38" />
+            <path d="M1133 182v38" />
             <circle cx="733" cy="220" fill="#0057d9" r="4" stroke="none" />
             <circle cx="1133" cy="220" fill="#0057d9" r="4" stroke="none" />
           </g>
