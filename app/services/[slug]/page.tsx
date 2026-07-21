@@ -610,10 +610,10 @@ function OtPurdueModelDiagram() {
 
   return (
     <figure className="overflow-hidden rounded-[28px] border border-white/10 bg-stone-50 p-4 shadow-[0_24px_80px_rgba(0,0,0,0.35)]">
-      <div className="overflow-x-auto">
+      <div className="overflow-hidden rounded-2xl bg-white">
         <svg
           aria-labelledby="ot-purdue-diagram-title"
-          className="min-w-[1380px]"
+          className="h-auto w-full"
           role="img"
           viewBox="0 0 1720 1180"
         >
@@ -779,13 +779,13 @@ function OtPurdueModelDiagram() {
             ["Security Fabric", "Integrated Protection"],
           ], 560, 78)}
 
-          {renderSidePanel(1430, 730, ["MANAGEMENT NETWORK"], [
-            ["Out-of-Band Management", ""],
-            ["Monitoring & Alerting", ""],
-            ["Authentication (RADIUS / AD)", ""],
-            ["Syslog / NTP / DNS", ""],
-            ["Backup & Reporting", ""],
-          ], 310, 48)}
+          {renderSidePanel(1430, 720, ["MANAGEMENT NETWORK"], [
+            ["Out-of-Band Mgmt", "Dedicated admin path"],
+            ["Monitoring", "Availability alerts"],
+            ["RADIUS / AD", "Authentication"],
+            ["Syslog / NTP / DNS", "Shared services"],
+            ["Backup Reporting", "Recovery records"],
+          ], 300, 46)}
 
           <g>
             <rect fill="#ffffff" height="166" rx="10" stroke="#cbd5e1" width="216" x="30" y="652" />
@@ -809,11 +809,11 @@ function OtPurdueModelDiagram() {
             <text fill="#1e3a8a" fontSize="15" fontWeight="900" x="52" y="1058">KEY BENEFITS</text>
             {[
               ["SECURE BY DESIGN", "Defense-in-depth across IT and OT"],
-              ["HIGH AVAILABILITY", "Redundant firewalls, switches and links"],
-              ["VISIBILITY", "Complete visibility across the industrial stack"],
-              ["COMPLIANCE READY", "Supports NIS2, IEC 62443, ISO 27001, and more"],
-              ["SCALABLE ARCHITECTURE", "Flexible design to grow with operations"],
-              ["OPERATIONAL EFFICIENCY", "Automated policies, centralized control"],
+              ["HIGH AVAILABILITY", "Redundant firewalls and links"],
+              ["VISIBILITY", "Clear view across the OT stack"],
+              ["COMPLIANCE READY", "Supports IEC 62443 and ISO 27001"],
+              ["SCALABLE ARCHITECTURE", "Growth-ready segmented design"],
+              ["OPERATIONAL EFFICIENCY", "Centralized policy and reporting"],
             ].map(([title, body], index) => (
               <g key={title}>
                 <circle cx={78 + index * 268} cy="1102" fill="#f8fafc" r="26" stroke="#94a3b8" />
