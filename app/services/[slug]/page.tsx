@@ -656,7 +656,7 @@ function OtPurdueModelDiagram() {
             {[
               [390, "INTERNET", "ISP A", "internet"],
               [620, "INTERNET", "ISP B", "internet"],
-              [850, "CLOUD SERVICES", "Microsoft 365, AWS, Azure", "cloud"],
+              [850, "CLOUD SERVICES", "M365 / AWS / Azure", "cloud"],
               [1090, "BUSINESS APPS", "SaaS / CRM / ERP", "apps"],
             ].map(([x, title, subtitle, kind], index) => (
               <g key={`${title}-${index}`}>
@@ -668,17 +668,17 @@ function OtPurdueModelDiagram() {
                   </g>
                 ) : null}
                 {kind === "cloud" ? (
-                  <path d={`M${(x as number) + 30} 72c4-13 24-14 31-3 12-1 23 8 23 20 15 3 16 23 0 27H${(x as number) + 24}c-18-6-15-32 6-32z`} fill="none" stroke="#111827" strokeWidth="3" transform="translate(0 -24)" />
+                  <path d={`M${(x as number) + 26} 72c4-12 22-13 29-3 11-1 20 7 21 18 12 3 14 21 0 25H${(x as number) + 22}c-17-6-13-29 4-29z`} fill="none" stroke="#111827" strokeWidth="3" transform="translate(0 -24)" />
                 ) : null}
                 {kind === "apps" ? (
                   <g stroke="#111827" strokeWidth="3">
-                    <path d={`M${(x as number) + 36} 80V48h42v32`} fill="none" />
-                    <path d={`M${(x as number) + 46} 80V60h22v20`} fill="none" />
-                    <path d={`M${(x as number) + 50} 56h4M${(x as number) + 62} 56h4M${(x as number) + 50} 66h4M${(x as number) + 62} 66h4`} />
+                    <path d={`M${(x as number) + 28} 80V48h42v32`} fill="none" />
+                    <path d={`M${(x as number) + 38} 80V60h22v20`} fill="none" />
+                    <path d={`M${(x as number) + 42} 56h4M${(x as number) + 54} 56h4M${(x as number) + 42} 66h4M${(x as number) + 54} 66h4`} />
                   </g>
                 ) : null}
-                <text fill="#111827" fontSize="12" fontWeight="900" textAnchor="middle" x={(x as number) + 136} y="64">{title}</text>
-                <text fill="#111827" fontSize="11" textAnchor="middle" x={(x as number) + 136} y="87">{subtitle}</text>
+                <text fill="#111827" fontSize="12" fontWeight="900" x={(x as number) + 92} y="64">{title}</text>
+                <text fill="#111827" fontSize="11" x={(x as number) + 92} y="87">{subtitle}</text>
               </g>
             ))}
           </g>
