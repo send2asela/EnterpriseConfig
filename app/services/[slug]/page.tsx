@@ -694,10 +694,10 @@ function OtPurdueModelDiagram() {
                   <text fill="#111827" fontSize="12" key={line} x="382" y={level.y + 82 + index * 18}>{line}</text>
                 ))}
                 {level.rightTitle ? (
-                  <text fill={level.color} fontSize="13" fontWeight="900" x="1138" y={level.y + 32}>{level.rightTitle}</text>
+                  <text fill={level.color} fontSize="12" fontWeight="900" x="1224" y={level.y + 34}>{level.rightTitle}</text>
                 ) : null}
                 {level.right.map((line, index) => (
-                  <text fill="#111827" fontSize="11" key={line} x="1140" y={level.y + 56 + index * 18}>• {line}</text>
+                  <text fill="#111827" fontSize="10.5" key={line} x="1226" y={level.y + 58 + index * 17}>• {line}</text>
                 ))}
               </g>
             ))}
@@ -712,10 +712,10 @@ function OtPurdueModelDiagram() {
 
           {renderDevice(650, 220, 166)}
           {renderDevice(1050, 220, 166)}
-          <text fill="#111827" fontSize="12" fontWeight="900" textAnchor="end" x="632" y="238">FortiGate 1800F</text>
-          <text fill="#111827" fontSize="12" fontWeight="900" textAnchor="end" x="632" y="256">(HA Primary)</text>
-          <text fill="#111827" fontSize="12" fontWeight="900" x="1230" y="238">FortiGate 1800F</text>
-          <text fill="#111827" fontSize="12" fontWeight="900" x="1230" y="256">(HA Secondary)</text>
+          <text fill="#111827" fontSize="11" fontWeight="900" textAnchor="middle" x="733" y="206">FortiGate 1800F</text>
+          <text fill="#111827" fontSize="11" fontWeight="900" textAnchor="middle" x="733" y="292">(HA Primary)</text>
+          <text fill="#111827" fontSize="11" fontWeight="900" textAnchor="middle" x="1133" y="206">FortiGate 1800F</text>
+          <text fill="#111827" fontSize="11" fontWeight="900" textAnchor="middle" x="1133" y="292">(HA Secondary)</text>
           <text fill="#ef4444" fontSize="11" fontWeight="900" textAnchor="middle" x="933" y="236">HA HEARTBEAT</text>
           <path d="M816 246h234" stroke="#ef4444" strokeDasharray="7 6" strokeWidth="2" />
 
