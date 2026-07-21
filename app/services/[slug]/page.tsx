@@ -628,8 +628,8 @@ function OtPurdueModelDiagram() {
 
           <rect fill="#ffffff" height="1180" rx="18" width="1720" />
 
-          <text fill="#111827" fontSize="32" fontWeight="900" x="32" y="52">FORTINET</text>
-          {renderFortinetMark(83, 28, 0.5)}
+          {renderFortinetMark(34, 28, 0.56)}
+          <text fill="#111827" fontSize="32" fontWeight="900" x="96" y="52">FORTINET</text>
           <text fill="#0f172a" fontSize="33" fontWeight="900" x="32" y="112">SECURING THE</text>
           <text fill="#047857" fontSize="42" fontWeight="900" x="32" y="160">PURDUE MODEL</text>
           <text fill="#475569" fontSize="18" x="32" y="194">A FortiGate OT Reference Architecture</text>
@@ -655,12 +655,12 @@ function OtPurdueModelDiagram() {
           <g>
             {[
               [390, "INTERNET", "ISP A", "internet"],
-              [602, "INTERNET", "ISP B", "internet"],
-              [814, "CLOUD SERVICES", "Microsoft 365, AWS, Azure", "cloud"],
-              [1050, "BUSINESS APPLICATIONS", "SaaS / CRM / ERP", "apps"],
+              [620, "INTERNET", "ISP B", "internet"],
+              [850, "CLOUD SERVICES", "Microsoft 365, AWS, Azure", "cloud"],
+              [1090, "BUSINESS APPS", "SaaS / CRM / ERP", "apps"],
             ].map(([x, title, subtitle, kind], index) => (
               <g key={`${title}-${index}`}>
-                <rect fill="#ffffff" height="96" rx="10" stroke="#cbd5e1" width="188" x={x as number} y="28" />
+                <rect fill="#ffffff" height="96" rx="10" stroke="#cbd5e1" width="208" x={x as number} y="28" />
                 {kind === "internet" ? (
                   <g>
                     <circle cx={(x as number) + 46} cy="62" fill="none" r="18" stroke="#111827" strokeWidth="3" />
@@ -668,17 +668,17 @@ function OtPurdueModelDiagram() {
                   </g>
                 ) : null}
                 {kind === "cloud" ? (
-                  <path d={`M${(x as number) + 38} 70c5-16 30-18 39-4 15-1 28 10 28 25 18 4 20 29 0 34H${(x as number) + 30}c-23-8-18-40 8-40z`} fill="none" stroke="#111827" strokeWidth="3" transform="translate(0 -24)" />
+                  <path d={`M${(x as number) + 30} 72c4-13 24-14 31-3 12-1 23 8 23 20 15 3 16 23 0 27H${(x as number) + 24}c-18-6-15-32 6-32z`} fill="none" stroke="#111827" strokeWidth="3" transform="translate(0 -24)" />
                 ) : null}
                 {kind === "apps" ? (
                   <g stroke="#111827" strokeWidth="3">
-                    <path d={`M${(x as number) + 38} 80V48h42v32`} fill="none" />
-                    <path d={`M${(x as number) + 48} 80V60h22v20`} fill="none" />
-                    <path d={`M${(x as number) + 52} 56h4M${(x as number) + 64} 56h4M${(x as number) + 52} 66h4M${(x as number) + 64} 66h4`} />
+                    <path d={`M${(x as number) + 36} 80V48h42v32`} fill="none" />
+                    <path d={`M${(x as number) + 46} 80V60h22v20`} fill="none" />
+                    <path d={`M${(x as number) + 50} 56h4M${(x as number) + 62} 56h4M${(x as number) + 50} 66h4M${(x as number) + 62} 66h4`} />
                   </g>
                 ) : null}
-                <text fill="#111827" fontSize="13" fontWeight="900" textAnchor="middle" x={(x as number) + 112} y="68">{title}</text>
-                <text fill="#111827" fontSize="12" textAnchor="middle" x={(x as number) + 94} y="91">{subtitle}</text>
+                <text fill="#111827" fontSize="12" fontWeight="900" textAnchor="middle" x={(x as number) + 136} y="64">{title}</text>
+                <text fill="#111827" fontSize="11" textAnchor="middle" x={(x as number) + 136} y="87">{subtitle}</text>
               </g>
             ))}
           </g>
@@ -704,10 +704,10 @@ function OtPurdueModelDiagram() {
           </g>
 
           <g stroke="#0057d9" strokeWidth="3">
-            <path d="M484 124v66h248v38" fill="none" />
-            <path d="M696 124v66h36v38" fill="none" />
-            <path d="M908 124v66h286v38" fill="none" />
-            <path d="M1144 124v66h50v38" fill="none" />
+            <path d="M494 124v66h238v38" fill="none" />
+            <path d="M724 124v66h8v38" fill="none" />
+            <path d="M954 124v66h240v38" fill="none" />
+            <path d="M1194 124v66h0v38" fill="none" />
           </g>
 
           {renderDevice(650, 220, 166)}
