@@ -10,195 +10,480 @@ type ServicePageProps = {
 };
 
 function EnterpriseNetworkArchitectureDiagram() {
+  const layers = [
+    {
+      title: "EXTERNAL\nNETWORKS",
+      y: 28,
+      height: 132,
+      stroke: "#a5b4fc",
+      fill: "#f8fafc",
+    },
+    {
+      title: "PERIMETER / EDGE",
+      y: 214,
+      height: 146,
+      stroke: "#d8b4fe",
+      fill: "#fdf4ff",
+    },
+    {
+      title: "CORE LAYER",
+      y: 408,
+      height: 128,
+      stroke: "#93c5fd",
+      fill: "#eff6ff",
+    },
+    {
+      title: "DISTRIBUTION\nLAYER",
+      y: 598,
+      height: 142,
+      stroke: "#bbf7d0",
+      fill: "#f0fdf4",
+    },
+    {
+      title: "ACCESS\nLAYER",
+      y: 802,
+      height: 262,
+      stroke: "#fde68a",
+      fill: "#fffbeb",
+    },
+    {
+      title: "MANAGEMENT\n& SERVICES",
+      y: 1094,
+      height: 150,
+      stroke: "#ddd6fe",
+      fill: "#f5f3ff",
+    },
+  ];
+
+  const renderExternalNode = ({
+    x,
+    title,
+    subtitle,
+    kind,
+  }: {
+    x: number;
+    title: string;
+    subtitle: string;
+    kind: "internet" | "cloud" | "saas";
+  }) => (
+    <g>
+      <rect fill="#ffffff" height="108" rx="10" stroke="#e5e7eb" width="174" x={x} y="34" />
+      {kind === "internet" ? (
+        <g>
+          <circle cx={x + 87} cy="64" fill="none" r="20" stroke="#111827" strokeWidth="3" />
+          <path d={`M${x + 67} 64h40M${x + 87} 44c10 12 10 28 0 40M${x + 87} 44c-10 12-10 28 0 40`} fill="none" stroke="#111827" strokeWidth="2" />
+        </g>
+      ) : (
+        <path d={`M${x + 62} 72c6-18 34-20 43-4 18-2 32 10 33 27 17 4 22 30 3 39H${x + 54}c-24-8-20-43 8-43z`} fill="none" stroke="#111827" strokeWidth="3" />
+      )}
+      {kind === "saas" ? (
+        <path d={`M${x + 93} 73v18M${x + 84} 82h18`} stroke="#111827" strokeLinecap="round" strokeWidth="3" />
+      ) : null}
+      <text fill="#111827" fontSize="13" fontWeight="800" textAnchor="middle" x={x + 87} y="110">
+        {title}
+      </text>
+      <text fill="#111827" fontSize="12" fontWeight="700" textAnchor="middle" x={x + 87} y="129">
+        {subtitle}
+      </text>
+    </g>
+  );
+
+  const renderFortiGate = ({
+    x,
+    y,
+    label,
+    role,
+  }: {
+    x: number;
+    y: number;
+    label: string;
+    role: string;
+  }) => (
+    <g filter="url(#enterprise-soft-shadow)">
+      <rect fill="#e5e7eb" height="58" rx="5" stroke="#cbd5e1" width="164" x={x} y={y} />
+      <rect fill="#111827" height="25" rx="2" width="132" x={x + 16} y={y + 24} />
+      <rect fill="#ef2929" height="9" rx="1" width="19" x={x + 22} y={y + 11} />
+      <rect fill="#ef2929" height="9" rx="1" width="19" x={x + 46} y={y + 11} />
+      <rect fill="#ef2929" height="9" rx="1" width="19" x={x + 70} y={y + 11} />
+      <circle cx={x + 151} cy={y + 46} fill="#ef4444" r="4" />
+      <text fill="#111827" fontSize="13" fontWeight="800" textAnchor="middle" x={x - 62} y={y + 22}>
+        {label}
+      </text>
+      <text fill="#111827" fontSize="12" fontWeight="700" textAnchor="middle" x={x - 62} y={y + 42}>
+        {role}
+      </text>
+    </g>
+  );
+
+  const renderSwitch = ({
+    x,
+    y,
+    label,
+    width = 176,
+  }: {
+    x: number;
+    y: number;
+    label: string;
+    width?: number;
+  }) => (
+    <g filter="url(#enterprise-soft-shadow)">
+      <rect fill="#111827" height="52" rx="6" width={width} x={x} y={y} />
+      {Array.from({ length: Math.floor((width - 42) / 16) }).map((_, index) => (
+        <rect
+          fill="#020617"
+          height="12"
+          key={index}
+          rx="1"
+          stroke="#e5e7eb"
+          strokeOpacity="0.45"
+          width="12"
+          x={x + 18 + index * 16}
+          y={y + 16}
+        />
+      ))}
+      <circle cx={x + width - 18} cy={y + 18} fill="#f97316" r="3" />
+      <circle cx={x + width - 18} cy={y + 34} fill="#f97316" r="3" />
+      <text fill="#111827" fontSize="13" fontWeight="800" textAnchor="middle" x={x + width / 2} y={y + 76}>
+        {label}
+      </text>
+    </g>
+  );
+
+  const renderEndpointGroup = ({
+    x,
+    label,
+    vlan,
+    kind,
+  }: {
+    x: number;
+    label: string;
+    vlan: string;
+    kind: "users" | "voice" | "servers" | "wireless";
+  }) => (
+    <g>
+      <rect fill="#ffffff" fillOpacity="0.65" height="102" rx="10" stroke="#94a3b8" strokeDasharray="5 5" width="204" x={x} y="920" />
+      {kind === "users" ? (
+        [0, 1, 2, 3].map((item) => (
+          <g key={item}>
+            <rect fill="#bfdbfe" height="22" rx="2" stroke="#64748b" width="34" x={x + 22 + item * 42} y="948" />
+            <path d={`M${x + 18 + item * 42} 978h42`} stroke="#64748b" strokeWidth="3" />
+          </g>
+        ))
+      ) : null}
+      {kind === "voice" ? (
+        [0, 1, 2].map((item) => (
+          <g key={item}>
+            <rect fill="#1f2937" height="44" rx="5" width="30" x={x + 42 + item * 48} y="940" />
+            <rect fill="#60a5fa" height="10" rx="1" width="18" x={x + 48 + item * 48} y="948" />
+          </g>
+        ))
+      ) : null}
+      {kind === "servers" ? (
+        [0, 1, 2].map((item) => (
+          <g key={item}>
+            <rect fill="#1f2937" height="58" rx="5" width="38" x={x + 38 + item * 52} y="934" />
+            <circle cx={x + 50 + item * 52} cy="950" fill="#60a5fa" r="3" />
+            <path d={`M${x + 48 + item * 52} 964h18M${x + 48 + item * 52} 976h18`} stroke="#94a3b8" />
+          </g>
+        ))
+      ) : null}
+      {kind === "wireless" ? (
+        [0, 1, 2].map((item) => (
+          <g key={item}>
+            <ellipse cx={x + 52 + item * 50} cy="962" fill="#e5e7eb" rx="22" ry="10" stroke="#94a3b8" />
+            <circle cx={x + 52 + item * 50} cy="960" fill="#60a5fa" r="3" />
+          </g>
+        ))
+      ) : null}
+      <text fill="#1d4ed8" fontSize="12" fontWeight="900" textAnchor="middle" x={x + 102} y="1002">
+        {label}
+      </text>
+      <text fill="#111827" fontSize="11" fontWeight="700" textAnchor="middle" x={x + 102} y="1018">
+        {vlan}
+      </text>
+    </g>
+  );
+
+  const renderSidePanel = ({
+    x,
+    y,
+    title,
+    items,
+    color,
+  }: {
+    x: number;
+    y: number;
+    title: string;
+    items: string[];
+    color: string;
+  }) => (
+    <g>
+      <rect fill="#ffffff" height={36 + items.length * 22} rx="10" stroke="#e5e7eb" width="194" x={x} y={y} />
+      <text fill={color} fontSize="13" fontWeight="900" x={x + 14} y={y + 27}>
+        {title}
+      </text>
+      {items.map((item, index) => (
+        <g key={item}>
+          <circle cx={x + 19} cy={y + 52 + index * 22} fill={color} r="3" />
+          <text fill="#111827" fontSize="12" x={x + 32} y={y + 56 + index * 22}>
+            {item}
+          </text>
+        </g>
+      ))}
+    </g>
+  );
+
+  const renderServiceIcon = ({
+    x,
+    label,
+    sub,
+  }: {
+    x: number;
+    label: string;
+    sub: string;
+  }) => (
+    <g>
+      <rect fill="#ffffff" height="66" rx="8" stroke="#c4b5fd" width="90" x={x} y="1130" />
+      <rect fill="#1f2937" height="35" rx="4" width="45" x={x + 23} y="1140" />
+      <path d={`M${x + 33} 1158h25M${x + 33} 1166h18`} stroke="#93c5fd" strokeWidth="3" />
+      <text fill="#111827" fontSize="11" fontWeight="800" textAnchor="middle" x={x + 45} y="1216">
+        {label}
+      </text>
+      <text fill="#475569" fontSize="9" textAnchor="middle" x={x + 45} y="1230">
+        {sub}
+      </text>
+    </g>
+  );
+
   return (
-    <figure className="overflow-hidden rounded-[28px] border border-sky-300/20 bg-[#111827] p-4 shadow-[0_24px_80px_rgba(0,0,0,0.35)]">
+    <figure className="overflow-hidden rounded-[28px] border border-white/10 bg-stone-50 p-4 shadow-[0_24px_80px_rgba(0,0,0,0.35)]">
       <div className="overflow-x-auto">
         <svg
-          aria-labelledby="enterprise-network-rack-title"
-          className="min-w-[820px]"
+          aria-labelledby="enterprise-network-design-title"
+          className="min-w-[1120px]"
           role="img"
-          viewBox="0 0 980 1180"
+          viewBox="0 0 1280 1370"
         >
-          <title id="enterprise-network-rack-title">
-            Enterprise network architecture rack design with HA firewalls and switching layers
+          <title id="enterprise-network-design-title">
+            Enterprise network architecture design with FortiGate HA, switching layers, access networks, and management services
           </title>
           <defs>
-            <linearGradient id="rack-bg" x1="0" x2="0" y1="0" y2="1">
-              <stop stopColor="#111827" />
-              <stop offset="0.5" stopColor="#374151" />
-              <stop offset="1" stopColor="#1f2937" />
-            </linearGradient>
-            <linearGradient id="blue-glow" x1="0" x2="1">
-              <stop stopColor="#38bdf8" stopOpacity="0.15" />
-              <stop offset="0.5" stopColor="#0ea5e9" stopOpacity="0.95" />
-              <stop offset="1" stopColor="#38bdf8" stopOpacity="0.15" />
-            </linearGradient>
-            <filter id="rack-shadow" x="-20%" y="-20%" width="140%" height="140%">
-              <feDropShadow dx="0" dy="16" floodColor="#000000" floodOpacity="0.38" stdDeviation="12" />
-            </filter>
-            <filter id="rack-blue-glow" x="-30%" y="-30%" width="160%" height="160%">
-              <feDropShadow dx="0" dy="0" floodColor="#38bdf8" floodOpacity="0.65" stdDeviation="6" />
+            <filter id="enterprise-soft-shadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="8" floodColor="#0f172a" floodOpacity="0.18" stdDeviation="7" />
             </filter>
           </defs>
 
-          <rect fill="url(#rack-bg)" height="1180" rx="28" width="980" />
-          <g opacity="0.16" stroke="#93c5fd">
-            <path d="M80 118h820M80 242h820M80 366h820M80 490h820M80 614h820M80 738h820M80 862h820" />
-            <path d="M160 100v820M820 100v820M240 100v820M740 100v820" />
-          </g>
+          <rect fill="#ffffff" height="1370" rx="24" width="1280" />
 
-          <text fill="#f8fafc" fontSize="48" fontWeight="900" textAnchor="middle" x="490" y="78">
-            Enterprise Network Architecture Design
-          </text>
-          <text fill="#cbd5e1" fontSize="18" fontWeight="700" textAnchor="middle" x="490" y="112">
-            FortiGate HA edge, Cisco core, distribution, access, VPN, cloud and endpoint services
-          </text>
-
-          <g filter="url(#rack-shadow)">
-            <path d="M126 210c20-50 92-54 122-10 48-6 88 28 90 76 43 10 50 72 6 96H110c-58-20-50-112 16-116z" fill="#e5e7eb" opacity="0.92" />
-            <text fill="#1d4ed8" fontSize="29" fontWeight="900" textAnchor="middle" x="216" y="287">
-              ISP A
-            </text>
-            <text fill="#64748b" fontSize="14" fontWeight="700" textAnchor="middle" x="216" y="316">
-              Primary WAN
-            </text>
-            <path d="M216 372v62" stroke="#fbbf24" strokeWidth="8" />
-            <path d="M236 372v62" stroke="#38bdf8" strokeWidth="8" />
-            <path d="M196 372v62" stroke="#ef4444" strokeWidth="8" />
-          </g>
-
-          <g filter="url(#rack-shadow)">
-            <path d="M646 210c22-52 96-54 124-9 46-3 84 30 86 76 44 11 50 73 7 95H630c-60-21-50-112 16-116z" fill="#e5e7eb" opacity="0.92" />
-            <rect fill="#f97316" height="58" rx="4" width="66" x="692" y="253" />
-            <text fill="#111827" fontSize="22" fontWeight="900" x="770" y="276">Cloud</text>
-            <text fill="#111827" fontSize="17" fontWeight="800" x="770" y="302">Business Services</text>
-            <path d="M724 372v62" stroke="#f97316" strokeWidth="8" />
-            <path d="M744 372v62" stroke="#38bdf8" strokeWidth="8" />
-            <path d="M704 372v62" stroke="#fbbf24" strokeWidth="8" />
-          </g>
-
-          <g filter="url(#rack-shadow)">
-            <rect fill="#7f1d1d" height="74" rx="10" width="396" x="82" y="430" />
-            <rect fill="#f4f4f5" height="66" rx="4" width="340" x="108" y="392" />
-            <rect fill="#ef2929" height="14" rx="2" width="26" x="124" y="412" />
-            <rect fill="#ef2929" height="14" rx="2" width="26" x="156" y="412" />
-            <rect fill="#111827" height="28" rx="2" width="184" x="205" y="411" />
-            {Array.from({ length: 10 }).map((_, index) => (
-              <rect key={index} fill="#020617" height="14" rx="1" width="14" x={214 + index * 16} y="418" />
-            ))}
-            <text fill="#f8fafc" fontSize="34" fontWeight="900" textAnchor="middle" x="280" y="486">Firewall</text>
-          </g>
-
-          <g filter="url(#rack-shadow)">
-            <rect fill="#7f1d1d" height="74" rx="10" width="396" x="502" y="430" />
-            <rect fill="#f4f4f5" height="66" rx="4" width="340" x="530" y="392" />
-            <rect fill="#ef2929" height="14" rx="2" width="26" x="546" y="412" />
-            <rect fill="#ef2929" height="14" rx="2" width="26" x="578" y="412" />
-            <rect fill="#111827" height="28" rx="2" width="184" x="625" y="411" />
-            {Array.from({ length: 10 }).map((_, index) => (
-              <rect key={index} fill="#020617" height="14" rx="1" width="14" x={634 + index * 16} y="418" />
-            ))}
-            <text fill="#f8fafc" fontSize="34" fontWeight="900" textAnchor="middle" x="700" y="486">Firewall</text>
-          </g>
-
-          <g filter="url(#rack-blue-glow)">
-            <rect fill="#1e3a8a" height="52" rx="8" width="92" x="444" y="425" />
-            <text fill="#f8fafc" fontSize="30" fontWeight="900" textAnchor="middle" x="490" y="461">HA</text>
-            <path d="M478 453h-44M536 453h44" stroke="#fbbf24" strokeWidth="8" />
-          </g>
-
-          <g filter="url(#rack-shadow)">
-            <rect fill="#0f172a" height="82" rx="10" width="768" x="106" y="548" />
-            <rect fill="#020617" height="40" rx="4" width="224" x="150" y="572" />
-            <rect fill="#020617" height="40" rx="4" width="224" x="606" y="572" />
-            {Array.from({ length: 12 }).map((_, index) => (
-              <rect key={`core-a-${index}`} fill="#111827" height="18" rx="1" stroke="#fbbf24" strokeOpacity="0.5" width="12" x={164 + index * 16} y="583" />
-            ))}
-            {Array.from({ length: 12 }).map((_, index) => (
-              <rect key={`core-b-${index}`} fill="#111827" height="18" rx="1" stroke="#fbbf24" strokeOpacity="0.5" width="12" x={620 + index * 16} y="583" />
-            ))}
-            <rect fill="#0e7490" height="45" rx="5" width="260" x="360" y="615" />
-            <text fill="#f8fafc" fontSize="28" fontWeight="900" textAnchor="middle" x="490" y="646">Core Switches</text>
-          </g>
-
-          <g filter="url(#rack-blue-glow)" opacity="0.95">
-            <path d="M270 630c44 86 121 129 220 129s176-43 220-129" fill="none" stroke="#38bdf8" strokeWidth="5" />
-            <path d="M310 630c39 58 99 87 180 87s141-29 180-87" fill="none" stroke="#fbbf24" strokeWidth="3" />
-          </g>
-
-          <g filter="url(#rack-shadow)">
-            <rect fill="#111827" height="76" rx="8" width="324" x="168" y="736" />
-            <rect fill="#111827" height="76" rx="8" width="324" x="488" y="736" />
-            {Array.from({ length: 16 }).map((_, index) => (
-              <rect key={`dist-a-${index}`} fill="#020617" height="18" rx="1" stroke="#fbbf24" strokeOpacity="0.45" width="13" x={190 + index * 17} y="765" />
-            ))}
-            {Array.from({ length: 16 }).map((_, index) => (
-              <rect key={`dist-b-${index}`} fill="#020617" height="18" rx="1" stroke="#fbbf24" strokeOpacity="0.45" width="13" x={510 + index * 17} y="765" />
-            ))}
-            <rect fill="#0e7490" height="45" rx="5" width="330" x="325" y="805" />
-            <text fill="#f8fafc" fontSize="28" fontWeight="900" textAnchor="middle" x="490" y="836">Distribution Switches</text>
-          </g>
-
-          <g filter="url(#rack-blue-glow)" opacity="0.9">
-            <path d="M322 850c38 64 94 96 168 96s130-32 168-96" fill="none" stroke="#38bdf8" strokeWidth="5" />
-            <path d="M372 850c29 39 68 58 118 58s89-19 118-58" fill="none" stroke="#fbbf24" strokeWidth="3" />
-          </g>
-
-          <g filter="url(#rack-shadow)">
-            <rect fill="#111827" height="76" rx="8" width="648" x="166" y="936" />
-            {Array.from({ length: 28 }).map((_, index) => (
-              <rect key={`access-${index}`} fill="#020617" height="18" rx="1" stroke="#fbbf24" strokeOpacity="0.45" width="13" x={190 + index * 20} y="965" />
-            ))}
-            <rect fill="#0e7490" height="45" rx="5" width="300" x="340" y="1006" />
-            <text fill="#f8fafc" fontSize="28" fontWeight="900" textAnchor="middle" x="490" y="1037">Access Switches</text>
-          </g>
-
-          <g filter="url(#rack-blue-glow)" strokeLinecap="round">
-            <path d="M490 1012v68" stroke="#38bdf8" strokeWidth="5" />
-            <path d="M322 1012c-110 42-164 90-164 144" stroke="#38bdf8" strokeWidth="4" />
-            <path d="M420 1012c-78 32-118 74-118 126" stroke="#fbbf24" strokeWidth="3" />
-            <path d="M560 1012c72 38 108 81 108 128" stroke="#38bdf8" strokeWidth="4" />
-            <path d="M690 1012c88 36 132 82 132 138" stroke="#38bdf8" strokeWidth="4" />
-          </g>
-
-          <g fill="#f8fafc" fontWeight="900">
-            <g>
-              <rect fill="#e5e7eb" height="64" rx="10" width="72" x="86" y="1062" />
-              <circle cx="122" cy="1094" fill="#020617" r="18" />
-              <circle cx="122" cy="1094" fill="#38bdf8" r="7" />
-              <text fontSize="22" textAnchor="middle" x="122" y="1160">Camera</text>
+          {layers.map((layer) => (
+            <g key={layer.title}>
+              <rect
+                fill={layer.fill}
+                height={layer.height}
+                rx="8"
+                stroke={layer.stroke}
+                width="965"
+                x="16"
+                y={layer.y}
+              />
+              {layer.title.split("\n").map((line, index) => (
+                <text
+                  fill="#1d4ed8"
+                  fontSize="15"
+                  fontWeight="900"
+                  key={line}
+                  x="30"
+                  y={layer.y + 28 + index * 20}
+                >
+                  {line}
+                </text>
+              ))}
             </g>
-            <g>
-              <rect fill="#111827" height="68" rx="8" width="42" x="248" y="1076" />
-              <rect fill="#111827" height="68" rx="8" width="42" x="300" y="1076" />
-              <rect fill="#38bdf8" height="18" rx="2" width="26" x="256" y="1085" />
-              <rect fill="#38bdf8" height="18" rx="2" width="26" x="308" y="1085" />
-              <text fontSize="22" textAnchor="middle" x="295" y="1170">IP Phones</text>
-            </g>
-            <g>
-              <path d="M438 1090h108l24 50H414z" fill="#111827" />
-              <rect fill="#0ea5e9" height="36" rx="4" width="88" x="448" y="1097" />
-              <text fontSize="22" textAnchor="middle" x="490" y="1170">Laptops</text>
-            </g>
-            <g>
-              <ellipse cx="780" cy="1118" fill="#e5e7eb" rx="54" ry="22" />
-              <ellipse cx="820" cy="1118" fill="#e5e7eb" rx="54" ry="22" />
-              <rect fill="#f8fafc" height="32" rx="10" width="108" x="726" y="1086" />
-              <text fontSize="22" textAnchor="middle" x="780" y="1170">Access Points</text>
-            </g>
+          ))}
+
+          {renderExternalNode({ kind: "internet", subtitle: "ISP A", title: "Internet", x: 150 })}
+          {renderExternalNode({ kind: "internet", subtitle: "ISP B", title: "Internet", x: 350 })}
+          {renderExternalNode({
+            kind: "cloud",
+            subtitle: "Microsoft 365 / AWS / Azure",
+            title: "Cloud Services",
+            x: 550,
+          })}
+          {renderExternalNode({
+            kind: "saas",
+            subtitle: "Business Applications",
+            title: "SaaS / Business",
+            x: 750,
+          })}
+
+          <g stroke="#111827" strokeWidth="2">
+            <path d="M237 142v38h150v70" fill="none" />
+            <path d="M437 142v38h-50v70" fill="none" />
+            <path d="M637 142v38h20v70" fill="none" strokeDasharray="6 5" />
+            <path d="M837 142v38h-180v70" fill="none" strokeDasharray="6 5" />
+            <path d="M387 180h150v70M657 180h-120v70" fill="none" />
           </g>
 
-          <g opacity="0.75" stroke="url(#blue-glow)" strokeWidth="7">
-            <line x1="120" x2="120" y1="520" y2="1048" />
-            <line x1="860" x2="860" y1="520" y2="1048" />
+          <text fill="#111827" fontSize="12" x="288" y="248">Public IPs</text>
+          <text fill="#111827" fontSize="12" x="807" y="248">Public IPs</text>
+          {renderFortiGate({ label: "FortiGate 1800F", role: "HA Primary", x: 330, y: 270 })}
+          {renderFortiGate({ label: "FortiGate 1800F", role: "HA Secondary", x: 650, y: 270 })}
+          <path d="M494 301h156" stroke="#ef4444" strokeWidth="3" />
+          <ellipse cx="572" cy="301" fill="#ffffff" rx="34" ry="6" stroke="#ef4444" />
+          <text fill="#ef4444" fontSize="13" fontWeight="900" textAnchor="middle" x="572" y="286">HA Link</text>
+
+          <g stroke="#111827" strokeWidth="2">
+            <path d="M390 328v110" />
+            <path d="M720 328v110" />
+            <path d="M390 328l330 120" />
+            <path d="M720 328l-330 120" />
+          </g>
+
+          {renderSwitch({ label: "Core Switch 01 (L3, Stack/VSX)", x: 330, y: 446 })}
+          {renderSwitch({ label: "Core Switch 02 (L3, Stack/VSX)", x: 660, y: 446 })}
+          <path d="M506 474h154" stroke="#2563eb" strokeWidth="3" />
+          <ellipse cx="584" cy="474" fill="#ffffff" rx="42" ry="8" stroke="#111827" />
+          <text fill="#111827" fontSize="12" textAnchor="middle" x="584" y="496">MLAG / LACP</text>
+          <text fill="#111827" fontSize="12" textAnchor="middle" x="584" y="514">10/25/40/100G</text>
+
+          <g stroke="#111827" strokeWidth="2">
+            <path d="M385 498l-180 148M385 498l0 148M385 498l270 148M385 498l490 148" />
+            <path d="M715 498l-510 148M715 498l-330 148M715 498l-60 148M715 498l160 148" />
+          </g>
+          <g fill="#22c55e">
+            {[205, 385, 655, 875].map((x) => (
+              <circle cx={x} cy="646" key={x} r="4" />
+            ))}
+            <circle cx="385" cy="498" r="4" />
+            <circle cx="715" cy="498" r="4" />
+          </g>
+
+          {renderSwitch({ label: "Distribution 01 (Stack)", width: 128, x: 150, y: 640 })}
+          {renderSwitch({ label: "Distribution 02 (Stack)", width: 128, x: 330, y: 640 })}
+          {renderSwitch({ label: "Distribution 03 (Stack)", width: 128, x: 645, y: 640 })}
+          {renderSwitch({ label: "Distribution 04 (Stack)", width: 128, x: 825, y: 640 })}
+          <path d="M278 667h52M773 667h52" stroke="#111827" strokeWidth="3" />
+          <text fill="#111827" fontSize="12" textAnchor="middle" x="584" y="632">L3 Uplinks</text>
+          <text fill="#111827" fontSize="12" textAnchor="middle" x="584" y="650">10/25/40/100G</text>
+
+          <g stroke="#2563eb" strokeDasharray="6 5" strokeWidth="2">
+            <path d="M210 716v92" />
+            <path d="M390 716v92" />
+            <path d="M710 716v92" />
+            <path d="M890 716v92" />
+            <path d="M210 778h680" />
+          </g>
+
+          {renderSwitch({ label: "", width: 150, x: 120, y: 856 })}
+          {renderSwitch({ label: "", width: 150, x: 320, y: 856 })}
+          {renderSwitch({ label: "", width: 150, x: 610, y: 856 })}
+          {renderSwitch({ label: "", width: 150, x: 810, y: 856 })}
+          <g stroke="#111827" strokeWidth="2">
+            <path d="M210 692v164M390 692v164M710 692v164M890 692v164" />
+            <path d="M210 908v38M390 908v38M710 908v38M890 908v38" />
+          </g>
+          <text fill="#111827" fontSize="12" textAnchor="middle" x="584" y="836">L2 / L3 Uplinks</text>
+          <text fill="#111827" fontSize="12" textAnchor="middle" x="584" y="854">1/10/25G</text>
+
+          {renderEndpointGroup({ kind: "users", label: "USERS", vlan: "VLAN 10", x: 72 })}
+          {renderEndpointGroup({ kind: "voice", label: "VOICE", vlan: "VLAN 20", x: 300 })}
+          {renderEndpointGroup({ kind: "servers", label: "SERVERS", vlan: "VLAN 30", x: 600 })}
+          {renderEndpointGroup({ kind: "wireless", label: "WIRELESS", vlan: "VLAN 40", x: 828 })}
+
+          <g stroke="#2563eb" strokeDasharray="6 5" strokeWidth="2">
+            <path d="M174 1022v78M402 1022v78M702 1022v78M930 1022v78" />
+            <path d="M174 1100h756" />
+          </g>
+
+          {renderServiceIcon({ label: "FortiManager", sub: "Centralized Management", x: 154 })}
+          {renderServiceIcon({ label: "FortiAnalyzer", sub: "Logging & Reporting", x: 300 })}
+          {renderServiceIcon({ label: "FortiNAC", sub: "Network Access Control", x: 446 })}
+          {renderServiceIcon({ label: "RADIUS / AD / LDAP", sub: "Authentication", x: 592 })}
+          {renderServiceIcon({ label: "Syslog / NTP / DNS", sub: "Infrastructure Services", x: 738 })}
+          {renderServiceIcon({ label: "Backup / Monitoring", sub: "Availability & Alerts", x: 884 })}
+
+          {renderSidePanel({
+            color: "#1d4ed8",
+            items: ["High Availability", "Redundancy", "Scalability", "Security Segmentation", "Performance", "Resilience"],
+            title: "DESIGN PRINCIPLES",
+            x: 1010,
+            y: 80,
+          })}
+          {renderSidePanel({
+            color: "#059669",
+            items: ["WAN", "DMZ", "LAN", "Management"],
+            title: "SECURITY ZONES",
+            x: 1010,
+            y: 310,
+          })}
+          {renderSidePanel({
+            color: "#1d4ed8",
+            items: ["High-speed Switching", "Inter-VLAN Routing", "Redundant Uplinks", "Fast Convergence"],
+            title: "CORE FUNCTIONS",
+            x: 1010,
+            y: 505,
+          })}
+          {renderSidePanel({
+            color: "#047857",
+            items: ["Policy Enforcement", "Route Summarization", "Inter-VLAN Filtering", "High Availability"],
+            title: "DISTRIBUTION FUNCTIONS",
+            x: 1010,
+            y: 690,
+          })}
+          {renderSidePanel({
+            color: "#d97706",
+            items: ["Endpoint Connectivity", "VLAN Assignment", "802.1X / NAC", "PoE for IP Phones / APs"],
+            title: "ACCESS FUNCTIONS",
+            x: 1010,
+            y: 875,
+          })}
+          {renderSidePanel({
+            color: "#6d28d9",
+            items: ["Out-of-Band Management", "Monitoring & Logging", "Authentication Services", "Backup & Reporting"],
+            title: "MANAGEMENT NETWORK",
+            x: 1010,
+            y: 1090,
+          })}
+
+          <g>
+            <rect fill="#ffffff" height="84" rx="10" stroke="#e5e7eb" width="570" x="16" y="1270" />
+            <text fill="#64748b" fontSize="12" fontWeight="900" x="32" y="1296">LINK LEGEND</text>
+            <line stroke="#111827" strokeWidth="3" x1="34" x2="82" y1="1320" y2="1320" />
+            <text fill="#111827" fontSize="10" x="92" y="1324">10/25/40/100G Fiber</text>
+            <line stroke="#ef4444" strokeWidth="3" x1="230" x2="278" y1="1320" y2="1320" />
+            <text fill="#111827" fontSize="10" x="288" y="1324">HA / Synchronization</text>
+            <line stroke="#2563eb" strokeWidth="3" x1="430" x2="478" y1="1320" y2="1320" />
+            <text fill="#111827" fontSize="10" x="488" y="1324">Access / Copper</text>
+            <line stroke="#2563eb" strokeDasharray="6 5" strokeWidth="3" x1="34" x2="82" y1="1342" y2="1342" />
+            <text fill="#111827" fontSize="10" x="92" y="1346">Management Network</text>
+            <line stroke="#111827" strokeDasharray="6 5" strokeWidth="3" x1="230" x2="278" y1="1342" y2="1342" />
+            <text fill="#111827" fontSize="10" x="288" y="1346">Internet / WAN</text>
+          </g>
+
+          <g>
+            <rect fill="#ffffff" height="84" rx="10" stroke="#e5e7eb" width="604" x="606" y="1270" />
+            <text fill="#64748b" fontSize="12" fontWeight="900" x="624" y="1296">KEY BENEFITS</text>
+            {[
+              ["Secure by Design", 650],
+              ["High Availability", 795],
+              ["Scalable Architecture", 950],
+              ["Operational Efficiency", 1110],
+            ].map(([label, x]) => (
+              <g key={label}>
+                <circle cx={x as number} cy="1324" fill="#f8fafc" r="18" stroke="#94a3b8" />
+                <text fill="#111827" fontSize="10" fontWeight="800" textAnchor="middle" x={x as number} y="1350">
+                  {label}
+                </text>
+              </g>
+            ))}
           </g>
         </svg>
       </div>
-      <figcaption className="mt-3 text-sm leading-6 text-stone-300">
-        Rack-style enterprise design concept with dual FortiGate firewalls in HA,
-        redundant core and distribution switching, access switching, ISP/cloud
-        uplinks, and endpoint access for cameras, IP phones, laptops, and access
-        points.
+      <figcaption className="mt-3 text-sm leading-6 text-stone-600">
+        Layered enterprise network design concept with external networks,
+        FortiGate HA edge security, redundant core and distribution switching,
+        access VLANs, user/voice/server/wireless endpoints, management services,
+        design principles, and link legends.
       </figcaption>
     </figure>
   );
